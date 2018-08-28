@@ -8,5 +8,17 @@ export default {
     Vue.http.get(`${ME_API_URL}`).then(response => {
       success(response.body);
     });
+  },
+
+  getDiaries (success) {
+    Vue.http.get(`${ME_API_URL}/diary`).then(response => {
+      success(response.body);
+    })
+  },
+
+  postDiary (diary, success) {
+    Vue.http.post(`${ME_API_URL}/diary`, diary).then(response => {
+      success(response.body);
+    })
   }
 };

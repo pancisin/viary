@@ -37,11 +37,11 @@ const routes = [
     beforeEnter: require_auth,
     children: [
       {
-        path: '',
-        name: 'home',
-        component: () => import('@/components/pages/Home.page'),
+        path: 'diary',
+        name: 'diary',
+        component: () => import('@/components/pages/Diary.page'),
         beforeEnter (to, from, next) {
-          store.dispatch('initalizeUserApis').then(() => {
+          store.dispatch('initializeDiaries').then(() => {
             next();
           });
         }

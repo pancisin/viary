@@ -9,6 +9,7 @@ import java.util.*
 interface DiaryService {
   fun findById(id: UUID): Diary
   fun findBySlug(slug: String): Diary
+  fun getByUser(userId: Long) : List<Diary>
   fun save(diary: Diary): Diary
 
   /**

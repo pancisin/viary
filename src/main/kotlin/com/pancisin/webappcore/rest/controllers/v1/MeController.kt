@@ -24,6 +24,13 @@ class MeController {
   @GetMapping
   fun getUserData(principal: Principal) = UserDto.fromUser(userService.findByEmail(principal.name))
 
+  @GetMapping("/diary")
+  fun getDiaries(principal: Principal) : ResponseEntity<List<DiaryDto>> {
+    val stored = userService.findByEmail(principal.name)
+    val diaries = diaryService.getByUser(stored.id!!).map { DiaryDto.fromDiary(it)}
+    return ResponseEntity.ok(diaries)
+  }
+
   @PostMapping("/diary")
   fun createDiary(@RequestBody @Valid diaryDto: DiaryDto, principal: Principal) : ResponseEntity<DiaryDto> {
     val stored = Diary(

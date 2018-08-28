@@ -3,7 +3,7 @@
     <!-- <sidebar-part /> -->
 
     <div class="page-container">
-      <header-part />
+      <!-- <header-part /> -->
 
       <main class="main-content bgc-grey-100">
         <div

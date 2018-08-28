@@ -1,18 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import UserModule from '@/store/modules/User.module';
+import DiaryModule from '@/store/modules/Diary.module';
 import SettingsModule from '@/store/modules/Settings.module';
 
 Vue.use(Vuex);
 
 const getters = {
   globalLoading: (state, getters) => {
-    return getters.loadingScopedApi ||
-      getters.loadingScopedModel ||
-      getters.loadingInitialData ||
-      getters.loadingApis ||
-      getters.loadingModels;
-    // getters.$_bots.loadingScopedBot;
+    return getters.loadingInitialData;
   }
 };
 
@@ -22,7 +18,8 @@ const store = new Vuex.Store({
   getters,
   modules: {
     userModule: UserModule,
-    settingsModule: SettingsModule
+    settingsModule: SettingsModule,
+    diaryModule: DiaryModule
   }
 });
 

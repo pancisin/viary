@@ -11,6 +11,7 @@ import com.pancisin.webappcore.services.DiaryService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.util.*
+import javax.persistence.EntityManager
 import javax.transaction.Transactional
 
 @Component
@@ -21,6 +22,9 @@ open class DiaryServiceImpl : DiaryService {
 
   @Autowired
   lateinit var userDiaryRelationRepository: UserDiaryRelationRepository
+
+  @Autowired
+  lateinit var em: EntityManager
 
   @Transactional
   override fun create(diary: Diary, owner: User): Diary {
@@ -38,5 +42,22 @@ open class DiaryServiceImpl : DiaryService {
 
   override fun save(diary: Diary): Diary {
     return diaryRepository.save(diary)
+  }
+
+  override fun getByUser(userId: Long): List<Diary> {
+    val builder = em.criteriaBuilder
+
+    val query  = builder.createQuery(Diary::class.java)
+    val root = query.from(Diary::class.java)
+
+    val relationAssociation = root.join<Diary, UserDiaryRelation>("userRelations")
+    val userAssociation = relationAssociation.join<UserDiaryRelation, User>("user")
+
+    query.select(root).where(
+      builder.equal(relationAssociation.get<UserDiaryRelation>("relation"), RelationType.OWNER),
+      builder.equal(userAssociation.get<User>("id"), userId)
+    )
+
+    return em.createQuery(query).resultList
   }
 }
