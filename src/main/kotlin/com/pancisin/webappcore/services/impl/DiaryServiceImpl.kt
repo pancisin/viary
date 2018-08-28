@@ -10,11 +10,11 @@ import com.pancisin.webappcore.repositories.UserDiaryRelationRepository
 import com.pancisin.webappcore.services.DiaryService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Transactional
 import java.util.*
+import javax.transaction.Transactional
 
 @Component
-class DiaryServiceImpl : DiaryService {
+open class DiaryServiceImpl : DiaryService {
 
   @Autowired
   lateinit var diaryRepository: DiaryRepository
@@ -22,7 +22,7 @@ class DiaryServiceImpl : DiaryService {
   @Autowired
   lateinit var userDiaryRelationRepository: UserDiaryRelationRepository
 
-//  @Transactional
+  @Transactional
   override fun create(diary: Diary, owner: User): Diary {
     val stored = diaryRepository.save(diary)
 

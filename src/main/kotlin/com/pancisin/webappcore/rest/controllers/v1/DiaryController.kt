@@ -8,7 +8,6 @@ import com.pancisin.webappcore.services.DayService
 import com.pancisin.webappcore.services.DiaryService
 import org.joda.time.DateTime
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.autoconfigure.AutoConfigureOrder
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -59,6 +58,27 @@ class DiaryController {
     return ResponseEntity.ok(dayDto)
   }
 
+  @PostMapping("/day/{dateNumber}/{year}")
+  fun postDiaryDayByDate(
+    @PathVariable(name = "diaryIdentifier") diaryIdentifier: String,
+    @PathVariable(name = "dateNumber", required = true) dateNumber: Int,
+    @PathVariable(name = "year", required = true) year: Int,
+    @RequestBody dayDto: DayDto
+  ) : ResponseEntity<DayDto> {
+    val stored = findDiary(diaryIdentifier)
+
+    val day = Day(
+      dateNumber = dateNumber,
+      year = year,
+      diary = stored
+    ).apply {
+      content = dayDto.content.toString()
+    }
+
+    dayService.save(day)
+    return ResponseEntity.ok(DayDto.fromDay(day))
+  }
+
   @GetMapping("/day")
   fun getDiaryDays(
 
@@ -81,7 +101,7 @@ class DiaryController {
     val stored = findDiary(diaryIdentifier)
 
     stored.id?.let {
-      return ResponseEntity.ok(dayService.findByDiaryAndDateSpam(it, fromTime, toTime).map { d -> DayDto.fromDay(d) })
+      return ResponseEntity.ok(dayService.findByDiary(it, fromTime, toTime).map { d -> DayDto.fromDay(d) })
     }
 
     throw Exception("dsda")

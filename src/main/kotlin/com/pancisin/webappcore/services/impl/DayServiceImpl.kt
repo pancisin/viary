@@ -9,33 +9,28 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.util.*
 import javax.persistence.EntityManager
+import javax.transaction.Transactional
 
 @Component
-class DayServiceImpl : DayService {
+open class DayServiceImpl : DayService {
 
   @Autowired
   lateinit var em: EntityManager
 
+  @Transactional
   override fun save(day: Day): Day {
-    return em.persist(day) as Day
+    val stored = em.find(Day::class.java, day.identity)
+
+    if (stored != null) {
+      em.merge(day)
+    } else {
+      em.persist(day)
+    }
+
+    return day;
   }
 
-  override fun findByDiary(diaryId: UUID): List<Day> {
-    val builder = em.criteriaBuilder
-
-    val query  = builder.createQuery(Day::class.java)
-    val root = query.from(Day::class.java)
-
-    val diaryAssociate = root.join<Day, Diary>("diary")
-
-    query.select(root).where(
-      builder.equal(diaryAssociate.get<Diary>("id"), diaryId)
-    )
-
-    return em.createQuery(query).resultList
-  }
-
-  override fun findByDiaryAndDateSpam(diaryId: UUID, start: DateTime?, end: DateTime?): List<Day> {
+  override fun findByDiary(diaryId: UUID, start: DateTime?, end: DateTime?): List<Day> {
     val builder = em.criteriaBuilder
 
     val query  = builder.createQuery(Day::class.java)
