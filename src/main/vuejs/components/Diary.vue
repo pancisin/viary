@@ -4,7 +4,7 @@
       <button 
         class="btn btn-outline-primary" 
         @click="manipulateScope(-1)">
-        <i class="fa fa-angle-left"></i> Previous
+        <i class="fa fa-angle-left"></i> Predchádzajúci
       </button>
 
       <button
@@ -16,19 +16,20 @@
       <button 
         class="btn btn-outline-primary" 
         @click="manipulateScope(1)">
-        Next <i class="fa fa-angle-right"></i>
+        Nasledujúci <i class="fa fa-angle-right"></i>
       </button>
     </div>
 
     <div class="diary-info p-10">
-      <span>{{ scopeDay.monthLong }} - {{ scopeDay.weekNumber }}. week of {{ scopeDay.year }}</span>
+      <span>{{ scopeDay.monthLong }} - {{ scopeDay.weekNumber }}. týždeň {{ scopeDay.year }}</span>
     </div>
 
     <div class="diary-week p-10">
       <div 
         v-for="(day, index) in days" 
         :key="index" 
-        class="diary-day">
+        class="diary-day"
+        :class="{ 'diary-day-current' : day.startOf('day').toMillis() === DateTime.local().startOf('day').toMillis() }">
 
         <div class="diary-day-header">
           <span class="diary-day-header-date">
@@ -36,6 +37,9 @@
           </span>
           {{ day.weekdayLong }}
         </div>
+
+        <textarea rows="3" class="diary-day-content" v-model="day.content" @input="dayUpdate(day)">
+        </textarea>
       </div>
     </div>
   </div>
@@ -43,6 +47,12 @@
 
 <script>
 import { DateTime } from 'luxon';
+import debounce from 'debounce';
+
+import DiaryApi from '@/api/diary.api';
+
+import { mapGetters } from 'vuex';
+
 export default {
   props: {
 
@@ -53,10 +63,16 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['scopedDiary']),
     days () {
       return Array.from({ length: 7 }, (v, i) => i).map(i => {
-        return this.scopeDay.startOf('week').plus({ days: i })
+        const d = this.scopeDay.startOf('week').plus({ days: i })
+        Object.assign(d, { content: '' })
+        return d;
       })
+    },
+    DateTime () {
+      return DateTime
     }
   },
   methods: {
@@ -65,7 +81,15 @@ export default {
     },
     resetScope() {
       this.scopeDay = DateTime.local()
-    }
+    },
+    dayClass(dateTime) {
+    },
+    dayUpdate: debounce(function(day) {
+      console.log(day)
+      DiaryApi.postDay(this.scopedDiary.slug, day.daysInYear, day.year, day.content, () => {
+        console.log('saved')
+      })
+    }, 750)
   }
 }
 </script>
@@ -81,6 +105,10 @@ $diary-border: 1px solid #ccc;
 
   }
 
+  .diary-info {
+    text-transform: capitalize;
+  }
+
   .diary-week {
     display: flex;
     flex-wrap: wrap;
@@ -89,11 +117,11 @@ $diary-border: 1px solid #ccc;
       border-right: $diary-border;
       border-top: $diary-border;
       flex: 35vw 1 0;
-      min-height: 18vh;
+      min-height: 17vh;
       padding: 5px 10px;
 
       .diary-day-header {
-        float: left;
+        // float: left;
         text-transform: uppercase;
 
         .diary-day-header-date {
@@ -112,7 +140,14 @@ $diary-border: 1px solid #ccc;
       }
 
       &.diary-day-current {
+        background-color: #daffd8;
+      }
 
+      .diary-day-content {
+        border: none;
+        resize: none;
+        width: 100%;
+        background: none !important;
       }
     }
   }

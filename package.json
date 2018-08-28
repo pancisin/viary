@@ -10,6 +10,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.1.1",
+    "debounce": "^1.2.0",
     "font-awesome": "^4.7.0",
     "luxon": "^1.2.1",
     "showdown": "^1.8.6",
