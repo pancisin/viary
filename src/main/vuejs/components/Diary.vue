@@ -29,7 +29,8 @@
         v-for="(day, index) in days" 
         :key="index" 
         class="diary-day"
-        :class="{ 'diary-day-current' : day.startOf('day').toMillis() === DateTime.local().startOf('day').toMillis() }">
+        :class="{ 'diary-day-current' : day.startOf('day').toMillis() === DateTime.local().startOf('day').toMillis() }"
+        @click="focusDayContent">
 
         <div class="diary-day-header">
           <span class="diary-day-header-date">
@@ -51,7 +52,7 @@ import debounce from 'debounce';
 
 import DiaryApi from '@/api/diary.api';
 
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   props: {
@@ -63,11 +64,27 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['scopedDiary']),
+    ...mapGetters(['scopedDiary', 'getDiaryWeek']),
+    daysContent () {
+      const week = this.getDiaryWeek(this.scopeDay.weekNumber)
+      if (week != null) {
+        return week.days
+      }
+
+      return []
+    },
     days () {
       return Array.from({ length: 7 }, (v, i) => i).map(i => {
         const d = this.scopeDay.startOf('week').plus({ days: i })
+
+        const dayNumber = d.diff(d.startOf('year'), 'days').toObject().days
+        const c = this.daysContent.filter(d => d.date_number === dayNumber)[0]
+
         Object.assign(d, { content: '' })
+        if (c != null) {
+          d.content = c.content;
+        }
+
         return d;
       })
     },
@@ -75,21 +92,43 @@ export default {
       return DateTime
     }
   },
+  mounted () {
+    this.scopeDiaryWeek(this.scopeDay.weekNumber);  
+  },
   methods: {
+    ...mapActions(['scopeDiaryWeek', 'updateDay']),
     manipulateScope(diff) {
-      this.scopeDay = this.scopeDay.plus({ weeks: diff })
+      this.scopeDay = this.scopeDay.plus({ weeks: diff });
+      this.scopeDiaryWeek(this.scopeDay.weekNumber);
     },
     resetScope() {
       this.scopeDay = DateTime.local()
     },
-    dayClass(dateTime) {
-    },
     dayUpdate: debounce(function(day) {
-      console.log(day)
-      DiaryApi.postDay(this.scopedDiary.slug, day.daysInYear, day.year, day.content, () => {
-        console.log('saved')
+
+      if (day == null) return
+      const dayNumber = day.diff(day.startOf('year'), 'days').toObject().days
+      this.updateDay({
+        weekNumber: this.scopeDay.weekNumber, 
+        day: {
+          date_number: dayNumber,
+          year: day.year,
+          content: day.content
+        }
       })
-    }, 750)
+      // DiaryApi.postDay(this.scopedDiary.slug, dayNumber, day.year, day.content, () => {
+      //   console.log('saved')
+      // })
+    }, 1000),
+    focusDayContent (e) {
+      const el = e.target;
+      if (!el.classList.contains('diary-day-content')) {
+        const textAreas = e.target.getElementsByClassName('diary-day-content')
+        if (textAreas.length > 0) {
+          textAreas[0].focus();
+        }
+      }
+    }
   }
 }
 </script>
@@ -121,6 +160,7 @@ $diary-border: 1px solid #ccc;
       padding: 5px 10px;
 
       .diary-day-header {
+        pointer-events: none;
         // float: left;
         text-transform: uppercase;
 

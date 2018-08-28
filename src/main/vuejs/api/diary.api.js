@@ -10,7 +10,7 @@ export default {
     })
   },
 
-  getDays(diaryId, filters, success) {
+  getDays(diaryId, filter, success) {
     Vue.http.get(`${DIARY_API_URL}/${diaryId}/day`, {
       params: {
         from: filter.from || null,
@@ -21,8 +21,8 @@ export default {
     })
   },
 
-  postDay(diaryId, dateNumber, year, content, success) {
-    Vue.http.post(`${DIARY_API_URL}/${diaryId}/day/${dateNumber}/${year}`, {
+  postDay(diaryId, { date_number, year, content }, success) {
+    Vue.http.post(`${DIARY_API_URL}/${diaryId}/day/${date_number}/${year}`, {
       content
     }).then(response => {
       success(response.body)
