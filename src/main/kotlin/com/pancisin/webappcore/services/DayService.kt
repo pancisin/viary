@@ -9,5 +9,13 @@ import java.util.*
 interface DayService {
   fun save(day: Day): Day
   fun findByDiary(diaryId: UUID): List<Day>
-  fun findByDiaryAndDateSpam(diaryId: UUID, start: DateTime, end: DateTime) : List<Day>
+
+  /**
+   * Get list od days by diary entity and filter by date span.
+   * @param diaryId - UUID identifier of diary entity
+   * @param start - (optional) filter date start
+   * @param end - (optional) filter date end
+   * @return list of days filtered by diary entity and optionally by date span
+   */
+  fun findByDiaryAndDateSpam(diaryId: UUID, start: DateTime?, end: DateTime?) : List<Day>
 }

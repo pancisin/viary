@@ -35,7 +35,7 @@ class DayServiceImpl : DayService {
     return em.createQuery(query).resultList
   }
 
-  override fun findByDiaryAndDateSpam(diaryId: UUID, start: DateTime, end: DateTime): List<Day> {
+  override fun findByDiaryAndDateSpam(diaryId: UUID, start: DateTime?, end: DateTime?): List<Day> {
     val builder = em.criteriaBuilder
 
     val query  = builder.createQuery(Day::class.java)
@@ -44,12 +44,21 @@ class DayServiceImpl : DayService {
     val diaryAssociate = root.join<Day, Diary>("diary")
     val identityAssociate = root.join<Day, DayIdentity>("identity")
 
-    query.select(root).where(
-      builder.equal(diaryAssociate.get<Diary>("id"), diaryId),
-      builder.greaterThan(identityAssociate.get<DayIdentity>("dateNumber"), start.dayOfYear),
-      builder.greaterThan(identityAssociate.get<DayIdentity>("dateNumber"), end.dayOfYear),
-      builder.equal(identityAssociate.get<DayIdentity>("year"), start.year)
-    )
+    query.select(root).where(builder.equal(diaryAssociate.get<Diary>("id"), diaryId))
+
+    if (start != null) {
+      query.where(
+        builder.greaterThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), start.dayOfYear),
+        builder.equal(identityAssociate.get<DayIdentity>("year"), start.year)
+      )
+    }
+
+    if (end != null) {
+      query.where(
+        builder.lessThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), end.dayOfYear),
+        builder.equal(identityAssociate.get<DayIdentity>("year"), end.year)
+      )
+    }
 
     return em.createQuery(query).resultList
   }
