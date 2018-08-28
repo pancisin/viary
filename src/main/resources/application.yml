@@ -1,0 +1,58 @@
+spring:
+  profiles:
+    active: production
+  application:
+    name: apigo
+  datasource:
+    url: jdbc:mysql://localhost:3306/diary_db?characterEncoding=UTF-8
+    driver-class-name: com.mysql.jdbc.Driver
+    sql-script-encoding: UTF-8
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    show-sql: false
+    generate-ddl: false
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+  signing-key: MaYzkSjmkzPC57L
+  encoding-strength: 256
+  security-realm: Spring Boot JWT Example Realm
+  jwt:
+    client-id: testjwtclientid
+    client-secret: XY7kmzoNzl100
+    grant-type: password
+    scope-read: read
+    scope-write: write
+    resource-ids: testjwtresourceid
+---
+spring:
+  profiles: local
+  datasource:
+    username: root
+    password:
+server:
+  port: 8180
+storage:
+  path: /diary_files/
+---
+spring:
+  profiles: production
+  datasource:
+    username: diary_db
+    password: MaV36YnUGhQezblC
+server:
+  port: 8080
+  context-path: /diary
+storage:
+  path: /uploads/diary/

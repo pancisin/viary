@@ -1,0 +1,38 @@
+{
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "emmet.includeLanguages": {
+      "vue-html": "html"
+    },
+    "emmet.showSuggestionsAsSnippets": true,
+    "eslint.options": {
+        "extensions": [
+            ".html",
+            ".js",
+            ".vue"
+        ]
+    },
+    "eslint.autoFixOnSave": true,
+    "eslint.validate": [{
+            "language": "html",
+            "autoFix": true
+        },
+        {
+            "language": "vue",
+            "autoFix": true
+        },
+        {
+            "language": "javascript",
+            "autoFix": true
+        }
+    ],
+
+    "editor.tabSize": 2,
+    "beautify.tabSize": 2,
+    "editor.insertSpaces": true,
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+    "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+
+    "prettier.spaceBeforeFunctionParen": true,
+    "prettier.singleQuote": true,
+    "html.format.wrapAttributes": "force"
+}
