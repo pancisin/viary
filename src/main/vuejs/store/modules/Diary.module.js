@@ -104,9 +104,14 @@ const mutations = {
     const weekIdx = state.scopedDiaryWeeks.findIndex(w => w.weekNumber === weekNumber)
     const week = state.scopedDiaryWeeks[weekIdx]
 
-    const dayIdx = week.days.findIndex(d => d.date_number === day.date_number)
+    // state.scopedDiaryWeeks.splice(weekIdx, 1, {
+    //   weekNumber: week.weekNumber,
+    //   days: 
+    // })
+
     state.scopedDiaryWeeks = state.scopedDiaryWeeks.map(w => {
       if (w.weekNumber === weekNumber) {
+        const dayIdx = w.days.findIndex(d => d.date_number === day.date_number)
         w.days.splice(dayIdx, 1, day)
       }
 

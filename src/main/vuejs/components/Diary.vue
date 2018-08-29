@@ -1,10 +1,37 @@
 <template>
   <div class="diary">
+    <div class="diary-info p-10 d-flex jc-sb ai-c">
+      <span>{{ scopeDay.monthLong }} - {{ scopeDay.weekNumber }}. týždeň {{ scopeDay.year }}</span>
+      <a>
+        <i class="fa fa-2x fa-cog"></i>
+      </a>
+    </div>
+
+    <div class="diary-week pX-10 pB-10">
+      <div 
+        v-for="(day, index) in days" 
+        :key="index" 
+        class="diary-day d-flex flex-column"
+        :class="{ 'diary-day-current' : day.startOf('day').toMillis() === DateTime.local().startOf('day').toMillis() }"
+        @click="focusDayContent(day, $event)">
+
+        <div class="diary-day-header">
+          <span class="diary-day-header-date">
+            {{ day.day }}
+          </span>
+          {{ day.weekdayLong }}
+        </div>
+
+        <textarea rows="3" class="diary-day-content flex-grow-1 text-secondary" v-model="day.content" @input="dayUpdate(day)">
+        </textarea>
+      </div>
+    </div>
+
     <div class="diary-controls p-10 d-flex jc-sb">
       <button 
         class="btn btn-outline-primary" 
         @click="manipulateScope(-1)">
-        <i class="fa fa-angle-left"></i> Predchádzajúci
+        <i class="fa fa-angle-left"></i> 
       </button>
 
       <button
@@ -16,33 +43,10 @@
       <button 
         class="btn btn-outline-primary" 
         @click="manipulateScope(1)">
-        Nasledujúci <i class="fa fa-angle-right"></i>
+         <i class="fa fa-angle-right"></i>
       </button>
     </div>
 
-    <div class="diary-info p-10">
-      <span>{{ scopeDay.monthLong }} - {{ scopeDay.weekNumber }}. týždeň {{ scopeDay.year }}</span>
-    </div>
-
-    <div class="diary-week p-10">
-      <div 
-        v-for="(day, index) in days" 
-        :key="index" 
-        class="diary-day"
-        :class="{ 'diary-day-current' : day.startOf('day').toMillis() === DateTime.local().startOf('day').toMillis() }"
-        @click="focusDayContent">
-
-        <div class="diary-day-header">
-          <span class="diary-day-header-date">
-            {{ day.day }}
-          </span>
-          {{ day.weekdayLong }}
-        </div>
-
-        <textarea rows="3" class="diary-day-content" v-model="day.content" @input="dayUpdate(day)">
-        </textarea>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -55,16 +59,16 @@ import DiaryApi from '@/api/diary.api';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  props: {
-
-  },
   data () {
     return {
       scopeDay: DateTime.local()
     }
   },
   computed: {
-    ...mapGetters(['scopedDiary', 'getDiaryWeek']),
+    ...mapGetters(['getDiaryWeek']),
+    ...mapGetters({
+      diary: 'scopedDiary'
+    }),
     daysContent () {
       const week = this.getDiaryWeek(this.scopeDay.weekNumber)
       if (week != null) {
@@ -116,11 +120,9 @@ export default {
           content: day.content
         }
       })
-      // DiaryApi.postDay(this.scopedDiary.slug, dayNumber, day.year, day.content, () => {
-      //   console.log('saved')
-      // })
     }, 1000),
-    focusDayContent (e) {
+    focusDayContent (day, e) {
+      this.scopeDay = day;
       const el = e.target;
       if (!el.classList.contains('diary-day-content')) {
         const textAreas = e.target.getElementsByClassName('diary-day-content')
@@ -135,13 +137,20 @@ export default {
 
 <style lang="scss">
 $diary-border: 1px solid #ccc;
+$current-color: #daffd8;
+$darken-amount: 5;
 
 .diary {
   background-color: #fff;
   height: calc(100vh - 61px);
 
   .diary-controls {
-
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    background: #fff;
+    border-top: $diary-border;
+    // box-shadow: 0px 15px 20px 14px rgba(70, 70, 70, 0.44);
   }
 
   .diary-info {
@@ -151,17 +160,22 @@ $diary-border: 1px solid #ccc;
   .diary-week {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 60px;
+
+    @media screen and (max-width: 480px) {
+      flex-direction: column;
+    }
 
     .diary-day {
       border-right: $diary-border;
       border-top: $diary-border;
       flex: 35vw 1 0;
-      min-height: 17vh;
+      min-height: 21vh;
       padding: 5px 10px;
+      transition: background-color 0.1s ease-in-out;
 
       .diary-day-header {
         pointer-events: none;
-        // float: left;
         text-transform: uppercase;
 
         .diary-day-header-date {
@@ -175,12 +189,24 @@ $diary-border: 1px solid #ccc;
         border-left: $diary-border;
       }
 
+      @media screen and (max-width: 480px) {
+        border-left: $diary-border;
+      }
+
       &:last-child {
         border-bottom: $diary-border;
       }
 
+      &:hover {
+        background-color: darken(#fff, $darken-amount);
+      }
+
       &.diary-day-current {
-        background-color: #daffd8;
+        background-color: $current-color;
+
+        &:hover {
+          background-color: darken($current-color, $darken-amount);
+        }
       }
 
       .diary-day-content {
@@ -188,6 +214,8 @@ $diary-border: 1px solid #ccc;
         resize: none;
         width: 100%;
         background: none !important;
+        cursor: default;
+        margin-top: 5px;
       }
     }
   }

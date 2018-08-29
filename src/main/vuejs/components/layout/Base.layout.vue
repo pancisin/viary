@@ -17,7 +17,7 @@
       </main>
 
       <toasts />
-      <footer-part />
+      <!-- <footer-part /> -->
     </div>
   </div>
 </template>
