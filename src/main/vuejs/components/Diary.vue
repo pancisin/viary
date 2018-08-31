@@ -12,7 +12,7 @@
         v-for="(day, index) in days" 
         :key="index" 
         class="diary-day d-flex flex-column"
-        :class="{ 'diary-day-current' : day.startOf('day').toMillis() === DateTime.local().startOf('day').toMillis() }"
+        :class="{ 'diary-day-current' : day.startOf('day').toMillis() === DateTime.local().startOf('day').toMillis(), 'diary-day-focused' : scopeDay.ts === day.ts }"
         @click="focusDayContent(day, $event)">
 
         <div class="diary-day-header">
@@ -29,19 +29,19 @@
 
     <div class="diary-controls p-10 d-flex jc-sb">
       <button 
-        class="btn btn-outline-primary" 
+        class="btn btn-outline-light" 
         @click="manipulateScope(-1)">
         <i class="fa fa-angle-left"></i> 
       </button>
 
       <button
-        class="btn btn-outline-primary"
+        class="btn btn-outline-light"
         @click="resetScope">
         <i class="fa fa-bullseye"></i>
       </button>
 
       <button 
-        class="btn btn-outline-primary" 
+        class="btn btn-outline-light" 
         @click="manipulateScope(1)">
          <i class="fa fa-angle-right"></i>
       </button>
@@ -138,19 +138,22 @@ export default {
 <style lang="scss">
 $diary-border: 1px solid #ccc;
 $current-color: #daffd8;
-$darken-amount: 5;
+$darken-amount: 2;
+$bg-gradient: linear-gradient(to right bottom, #e96443, #904e95);
 
 .diary {
-  background-color: #fff;
+  // background-color: #fff;
   height: calc(100vh - 61px);
+  background: #ffffffd9;
 
   .diary-controls {
     position: fixed;
     width: 100%;
     bottom: 0;
     background: #fff;
-    border-top: $diary-border;
+    // border-top: $diary-border;
     // box-shadow: 0px 15px 20px 14px rgba(70, 70, 70, 0.44);
+    background: $bg-gradient;
   }
 
   .diary-info {
@@ -197,14 +200,14 @@ $darken-amount: 5;
         border-bottom: $diary-border;
       }
 
-      &:hover {
+      &:hover, &.diary-day-focused {
         background-color: darken(#fff, $darken-amount);
       }
 
       &.diary-day-current {
         background-color: $current-color;
 
-        &:hover {
+        &:hover, &.diary-day-focused {
           background-color: darken($current-color, $darken-amount);
         }
       }

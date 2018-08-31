@@ -5,7 +5,7 @@
     <div class="page-container">
       <!-- <header-part /> -->
 
-      <main class="main-content bgc-grey-100">
+      <main class="main-content">
         <div
           v-loading="loading"
           id="mainContent">
