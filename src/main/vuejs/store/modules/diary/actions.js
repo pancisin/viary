@@ -4,32 +4,50 @@ import * as types from '@/store/mutation-types';
 
 import { DateTime } from 'luxon';
 
+import router from '@/router'
+
 export default {
   initializeDiaries ({ commit, dispatch }) {
     commit(types.SET_LOADING_DIARY, true);
     return new Promise(resolve => {
       MeApi.getDiaries(diaries => {
         commit(types.SET_DIARIES, { diaries })
-        dispatch('scopeDiary')
-        resolve(diaries)
         commit(types.SET_LOADING_DIARY, false);  
+        resolve(diaries)
       })
     })
   },
 
-  scopeDiary ({ commit, getters }) {
+  scopeDiary ({ commit, getters, dispatch }, scopeDate) {
     return new Promise(resolve => {
       const diary = getters.diaries[0] || {}
       commit(types.SCOPE_DIARY, { diary });
-      resolve();
+      if (scopeDate != null) {
+        dispatch('scopeDay', DateTime.fromSQL(scopeDate)).then(() => {
+          resolve();
+        })
+      } else {
+        resolve();
+      }
     })
   },
 
   scopeDay ({ commit, getters, dispatch }, day) {
+    if (day.toSQLDate() === getters.scopedDay.toSQLDate()) {
+      return
+    }
+    
+    router.replace({
+      name: 'diary',
+      query: {
+        date_scope: day.toSQLDate()
+      }
+    })
+
     return new Promise(resolve => {
       dispatch('loadWeekData', day.weekNumber).then(() => {
   
-        commit(types.SCOPE_DAY, { day });
+        commit(types.SCOPE_DAY, { day: day.toSQL() });
         resolve();
       })
     })

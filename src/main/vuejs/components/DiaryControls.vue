@@ -26,7 +26,7 @@ import { DateTime } from 'luxon';
 
 export default {
   mounted() {
-    this.resetScope();
+    // this.resetScope();
   },
   computed: {
     ...mapGetters(['scopedDay']),

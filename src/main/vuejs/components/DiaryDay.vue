@@ -41,8 +41,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['scopeDay']),
-    
+    ...mapActions(['scopeDay', 'updateScopedDay']),
+
     dayUpdate: debounce(function(e) {
       this.updateScopedDay(e.target.value)
     }, 1000),

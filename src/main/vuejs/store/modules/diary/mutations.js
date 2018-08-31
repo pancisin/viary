@@ -44,7 +44,7 @@ export default {
   },
 
   [types.SCOPE_DAY] (state, { day }) {
-    state.scopedDay = day.toSQL();
+    state.scopedDay = day;
   },
 
   [types.SET_LOADING_DIARY] (state, inProgress) {

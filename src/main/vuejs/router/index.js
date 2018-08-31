@@ -17,8 +17,7 @@ const require_auth = (to, from, next) => {
 
 const afterAuth = (to, from, next) => {
   if (store.getters.authenticated) {
-    // next(from.path);
-    next({ name: 'diary' });
+    next(from.path);
   } else {
     next();
   }
@@ -26,13 +25,13 @@ const afterAuth = (to, from, next) => {
 
 const routes = [
   {
-    path: '',
+    path: '/',
     name: 'landing',
     component: () => import('@/components/pages/Landing.page'),
-    beforeEnter: afterAuth
+    // beforeEnter: afterAuth
   },
   {
-    path: '/',
+    path: '/diary',
     component: () => import('@/components/layout/Base.layout'),
     beforeEnter: require_auth,
     children: [
@@ -42,7 +41,9 @@ const routes = [
         component: () => import('@/components/pages/Diary.page'),
         beforeEnter (to, from, next) {
           store.dispatch('initializeDiaries').then(() => {
-            next();
+            store.dispatch('scopeDiary', to.query.date_scope).then(() => {
+              next();
+            })
           });
         }
       },
