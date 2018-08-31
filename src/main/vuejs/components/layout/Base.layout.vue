@@ -9,10 +9,7 @@
         <div
           v-loading="loading"
           id="mainContent">
-
-          <page-transition>
-            <router-view />
-          </page-transition>
+          <router-view />
         </div>
       </main>
 

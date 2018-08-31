@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import UserModule from '@/store/modules/User.module';
-import DiaryModule from '@/store/modules/Diary.module';
+import DiaryModule from '@/store/modules/diary';
 import SettingsModule from '@/store/modules/Settings.module';
 
 Vue.use(Vuex);

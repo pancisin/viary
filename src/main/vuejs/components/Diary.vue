@@ -1,7 +1,7 @@
 <template>
-  <div class="diary">
+  <div class="diary" v-loading="loadingDiary">
     <div class="diary-info p-10 d-flex jc-sb ai-c">
-      <span>{{ scopeDay.monthLong }} - {{ scopeDay.weekNumber }}. týždeň {{ scopeDay.year }}</span>
+      <span>{{ scopedDay.monthLong }} - {{ scopedDay.weekNumber }}. týždeň {{ scopedDay.year }}</span>
       <a>
         <i class="fa fa-2x fa-cog"></i>
       </a>
@@ -9,7 +9,7 @@
 
     <div class="diary-week pX-10 pB-10">
       <div 
-        v-for="(day, index) in days" 
+        v-for="(day, index) in weekDays" 
         :key="index" 
         class="diary-day d-flex flex-column"
         :class="{ 'diary-day-current' : day.startOf('day').toMillis() === DateTime.local().startOf('day').toMillis(), 'diary-day-focused' : scopeDay.ts === day.ts }"
@@ -22,7 +22,7 @@
           {{ day.weekdayLong }}
         </div>
 
-        <textarea rows="3" class="diary-day-content flex-grow-1 text-secondary" v-model="day.content" @input="dayUpdate(day)">
+        <textarea rows="3" class="diary-day-content flex-grow-1 text-secondary" v-model="day.content" @input="dayUpdate">
         </textarea>
       </div>
     </div>
@@ -59,70 +59,31 @@ import DiaryApi from '@/api/diary.api';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  data () {
-    return {
-      scopeDay: DateTime.local()
-    }
-  },
   computed: {
-    ...mapGetters(['getDiaryWeek']),
-    ...mapGetters({
-      diary: 'scopedDiary'
-    }),
-    daysContent () {
-      const week = this.getDiaryWeek(this.scopeDay.weekNumber)
-      if (week != null) {
-        return week.days
-      }
-
-      return []
-    },
-    days () {
-      return Array.from({ length: 7 }, (v, i) => i).map(i => {
-        const d = this.scopeDay.startOf('week').plus({ days: i })
-
-        const dayNumber = d.diff(d.startOf('year'), 'days').toObject().days
-        const c = this.daysContent.filter(d => d.date_number === dayNumber)[0]
-
-        Object.assign(d, { content: '' })
-        if (c != null) {
-          d.content = c.content;
-        }
-
-        return d;
-      })
-    },
+    ...mapGetters(['loadingDiary', 'scopedDay', 'weekDays']),
     DateTime () {
       return DateTime
     }
   },
   mounted () {
-    this.scopeDiaryWeek(this.scopeDay.weekNumber);  
+    this.resetScope()
   },
   methods: {
-    ...mapActions(['scopeDiaryWeek', 'updateDay']),
+    ...mapActions(['scopeDay', 'updateScopedDay']),
     manipulateScope(diff) {
-      this.scopeDay = this.scopeDay.plus({ weeks: diff });
-      this.scopeDiaryWeek(this.scopeDay.weekNumber);
+      this.scopeDay(this.scopedDay.plus({ weeks: diff }))
     },
+    
     resetScope() {
-      this.scopeDay = DateTime.local()
+      this.scopeDay(DateTime.local())
     },
-    dayUpdate: debounce(function(day) {
 
-      if (day == null) return
-      const dayNumber = day.diff(day.startOf('year'), 'days').toObject().days
-      this.updateDay({
-        weekNumber: this.scopeDay.weekNumber, 
-        day: {
-          date_number: dayNumber,
-          year: day.year,
-          content: day.content
-        }
-      })
+    dayUpdate: debounce(function(e) {
+      this.updateScopedDay(e.target.value)
     }, 1000),
+    
     focusDayContent (day, e) {
-      this.scopeDay = day;
+      this.scopeDay(day);
       const el = e.target;
       if (!el.classList.contains('diary-day-content')) {
         const textAreas = e.target.getElementsByClassName('diary-day-content')

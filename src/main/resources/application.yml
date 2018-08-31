@@ -21,6 +21,8 @@ spring:
             mode: none
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
+  jmx:
+    enabled: false
 security:
   oauth2:
     resource:

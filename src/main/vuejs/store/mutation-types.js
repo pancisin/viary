@@ -8,3 +8,7 @@ export const SCOPE_DIARY = 'SCOPE_DIARY';
 export const SET_SCOPED_DIARY_DAYS = 'SET_SCOPED_DIARY_DATES';
 export const UPDATE_DAY = 'UPDATE_DAY';
 export const ADD_WEEK_TO_SCOPE = 'ADD_WEEK_TO_SCOPE';
+export const SCOPE_DAY = 'SCOPE_DAY';
+
+export const SET_LOADING_DIARY = 'SET_LOADING_DIARY';
+export const SET_SAVING_DIARY = 'SET_SAVING_DIARY';
