@@ -1,3 +1,5 @@
+import * as types from '@/store/mutation-types';
+
 export default {
   [types.SET_DIARIES] (state, { diaries }) {
     state.diaries = diaries;

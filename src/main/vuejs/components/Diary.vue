@@ -8,181 +8,28 @@
     </div>
 
     <div class="diary-week pX-10 pB-10">
-      <div 
-        v-for="(day, index) in weekDays" 
-        :key="index" 
-        class="diary-day d-flex flex-column"
-        :class="{ 'diary-day-current' : day.startOf('day').toMillis() === DateTime.local().startOf('day').toMillis(), 'diary-day-focused' : scopeDay.ts === day.ts }"
-        @click="focusDayContent(day, $event)">
-
-        <div class="diary-day-header">
-          <span class="diary-day-header-date">
-            {{ day.day }}
-          </span>
-          {{ day.weekdayLong }}
-        </div>
-
-        <textarea rows="3" class="diary-day-content flex-grow-1 text-secondary" v-model="day.content" @input="dayUpdate">
-        </textarea>
-      </div>
+      <diary-day v-for="(day, index) in weekDays" :key="index" :day="day" />
     </div>
 
-    <div class="diary-controls p-10 d-flex jc-sb">
-      <button 
-        class="btn btn-outline-light" 
-        @click="manipulateScope(-1)">
-        <i class="fa fa-angle-left"></i> 
-      </button>
-
-      <button
-        class="btn btn-outline-light"
-        @click="resetScope">
-        <i class="fa fa-bullseye"></i>
-      </button>
-
-      <button 
-        class="btn btn-outline-light" 
-        @click="manipulateScope(1)">
-         <i class="fa fa-angle-right"></i>
-      </button>
-    </div>
-
+    <diary-controls />
   </div>
 </template>
 
 <script>
-import { DateTime } from 'luxon';
-import debounce from 'debounce';
+import DiaryDay from './DiaryDay';
+import DiaryControls from './DiaryControls';
 
 import DiaryApi from '@/api/diary.api';
 
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
+  components: {
+    DiaryDay,
+    DiaryControls
+  },
   computed: {
-    ...mapGetters(['loadingDiary', 'scopedDay', 'weekDays']),
-    DateTime () {
-      return DateTime
-    }
-  },
-  mounted () {
-    this.resetScope()
-  },
-  methods: {
-    ...mapActions(['scopeDay', 'updateScopedDay']),
-    manipulateScope(diff) {
-      this.scopeDay(this.scopedDay.plus({ weeks: diff }))
-    },
-    
-    resetScope() {
-      this.scopeDay(DateTime.local())
-    },
-
-    dayUpdate: debounce(function(e) {
-      this.updateScopedDay(e.target.value)
-    }, 1000),
-    
-    focusDayContent (day, e) {
-      this.scopeDay(day);
-      const el = e.target;
-      if (!el.classList.contains('diary-day-content')) {
-        const textAreas = e.target.getElementsByClassName('diary-day-content')
-        if (textAreas.length > 0) {
-          textAreas[0].focus();
-        }
-      }
-    }
+    ...mapGetters(['loadingDiary', 'scopedDay', 'weekDays'])
   }
 }
 </script>
-
-<style lang="scss">
-$diary-border: 1px solid #ccc;
-$current-color: #daffd8;
-$darken-amount: 2;
-$bg-gradient: linear-gradient(to right bottom, #e96443, #904e95);
-
-.diary {
-  // background-color: #fff;
-  height: calc(100vh - 61px);
-  background: #ffffffd9;
-
-  .diary-controls {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    background: #fff;
-    // border-top: $diary-border;
-    // box-shadow: 0px 15px 20px 14px rgba(70, 70, 70, 0.44);
-    background: $bg-gradient;
-  }
-
-  .diary-info {
-    text-transform: capitalize;
-  }
-
-  .diary-week {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 60px;
-
-    @media screen and (max-width: 480px) {
-      flex-direction: column;
-    }
-
-    .diary-day {
-      border-right: $diary-border;
-      border-top: $diary-border;
-      flex: 35vw 1 0;
-      min-height: 21vh;
-      padding: 5px 10px;
-      transition: background-color 0.1s ease-in-out;
-
-      .diary-day-header {
-        pointer-events: none;
-        text-transform: uppercase;
-
-        .diary-day-header-date {
-          font-size: 28px;
-          line-height: 28px;
-          vertical-align: top;
-        }
-      }
-
-      &:nth-child(2n + 1) {
-        border-left: $diary-border;
-      }
-
-      @media screen and (max-width: 480px) {
-        border-left: $diary-border;
-      }
-
-      &:last-child {
-        border-bottom: $diary-border;
-      }
-
-      &:hover, &.diary-day-focused {
-        background-color: darken(#fff, $darken-amount);
-      }
-
-      &.diary-day-current {
-        background-color: $current-color;
-
-        &:hover, &.diary-day-focused {
-          background-color: darken($current-color, $darken-amount);
-        }
-      }
-
-      .diary-day-content {
-        border: none;
-        resize: none;
-        width: 100%;
-        background: none !important;
-        cursor: default;
-        margin-top: 5px;
-      }
-    }
-  }
-}
-
-</style>
