@@ -72,8 +72,8 @@ const actions = {
 
       resolve();
 
-      dispatch('resetModelModule');
-      dispatch('resetApiModule');
+      // dispatch('resetModelModule');
+      // dispatch('resetApiModule');
     });
   }
 };

@@ -34,11 +34,11 @@ export default {
   methods: {
     ...mapActions(['scopeDay', 'updateScopedDay']),
     manipulateScope(diff) {
-      this.scopeDay(this.scopedDay.plus({ weeks: diff }))
+      this.scopeDay({ day: this.scopedDay.plus({ weeks: diff }) })
     },
     
     resetScope() {
-      this.scopeDay(DateTime.local())
+      this.scopeDay({ day: DateTime.local() })
     }
   }
 }

@@ -22,18 +22,16 @@ export default {
     return new Promise(resolve => {
       const diary = getters.diaries[0] || {}
       commit(types.SCOPE_DIARY, { diary });
-      if (scopeDate != null) {
-        dispatch('scopeDay', DateTime.fromSQL(scopeDate)).then(() => {
-          resolve();
-        })
-      } else {
+
+      const day = scopeDate != null ? DateTime.fromSQL(scopeDate) : DateTime.local();
+      dispatch('scopeDay', { day }).then(() => {
         resolve();
-      }
+      })
     })
   },
 
-  scopeDay ({ commit, getters, dispatch }, day) {
-    if (day.toSQLDate() === getters.scopedDay.toSQLDate()) {
+  scopeDay ({ commit, getters, dispatch }, { day, force }) {
+    if (day.toSQLDate() === getters.scopedDay.toSQLDate() && !force) {
       return
     }
     

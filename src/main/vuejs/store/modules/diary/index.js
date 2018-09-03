@@ -9,7 +9,7 @@ const state = {
   scopedDiary: {},
   scopedDiaryDays: [],
   scopedDiaryWeeks: [],
-  scopedDay: DateTime.local().toSQL(),
+  scopedDay: {},
   loadingDiaryInProgress: false,
   savingDiaryInProgress: false
 }

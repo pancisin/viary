@@ -14,7 +14,7 @@ export default {
 
     }, [
       h('a', {
-        class: 'd-b td-n pY-5 bgcH-grey-100 c-grey-700',
+        class: 'd-b td-n pY-15 pX-20 bgcH-grey-100 c-grey-700',
         on: {
           click: e => {
             if (this.routerLinkTo != null) {

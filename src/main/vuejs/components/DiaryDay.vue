@@ -48,7 +48,7 @@ export default {
     }, 1000),
 
     focusDayContent (day, e) {
-      this.scopeDay(day);
+      this.scopeDay({ day });
       const el = e.target;
       if (!el.classList.contains('diary-day-content')) {
         const textAreas = e.target.getElementsByClassName('diary-day-content')

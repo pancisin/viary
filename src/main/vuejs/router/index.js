@@ -17,7 +17,7 @@ const require_auth = (to, from, next) => {
 
 const afterAuth = (to, from, next) => {
   if (store.getters.authenticated) {
-    next(from.path);
+    next({ name: 'diary' });
   } else {
     next();
   }
@@ -28,7 +28,7 @@ const routes = [
     path: '/',
     name: 'landing',
     component: () => import('@/components/pages/Landing.page'),
-    // beforeEnter: afterAuth
+    beforeEnter: afterAuth
   },
   {
     path: '/diary',
