@@ -41,13 +41,21 @@ const routes = [
         component: () => import('@/components/pages/Diary.page'),
         beforeEnter (to, from, next) {
           store.dispatch('initializeDiaries').then(() => {
-            store.dispatch('scopeDiary', to.query.date_scope).then(() => {
+            store.dispatch('scopeDiary', { scopeDate: to.query.date_scope }).then(() => {
               next();
+            }).catch(e => {
+              console.warn(e)
+              next({ name: 'diary.create' })
             })
           });
         }
       },
     ]
+  },
+  {
+    path: '/create-diary',
+    name: 'diary.create',
+    component: () => import('@/components/pages/CreateDiary.page')
   },
   {
     path: '/signin',

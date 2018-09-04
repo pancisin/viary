@@ -2,9 +2,11 @@
   <div class="diary" v-loading="loadingDiary">
     <diary-info />
 
-    <div class="diary-week pX-10 pB-10">
-      <diary-day v-for="(day, index) in weekDays" :key="index" :day="day" />
-    </div>
+    <!-- <diary-transition tag="div" class="diary-week pX-10 pB-10"> -->
+      <div class="diary-week pX-10 pB-10">
+        <diary-day v-for="day in weekDays" :key="day.ts" :day="day" />
+      </div>
+    <!-- </diary-transition> -->
 
     <diary-controls />
   </div>
@@ -19,11 +21,14 @@ import DiaryApi from '@/api/diary.api';
 
 import { mapGetters } from 'vuex';
 
+import { DiaryTransition } from '@/components/transitions'
+
 export default {
   components: {
     DiaryDay,
     DiaryControls,
-    DiaryInfo
+    DiaryInfo,
+    DiaryTransition
   },
   computed: {
     ...mapGetters(['loadingDiary', 'scopedDay', 'weekDays'])

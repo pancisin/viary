@@ -18,20 +18,32 @@ export default {
     })
   },
 
-  scopeDiary ({ commit, getters, dispatch }, scopeDate) {
-    return new Promise(resolve => {
+  scopeDiary ({ commit, getters, dispatch }, { slug, scopeDate }) {
+    return new Promise((resolve, reject) => {
+
+      if (getters.diaries.length === 0) {
+        reject(new Error('There are any diaries in user context.'));
+        return;
+      }
+
       const diary = getters.diaries[0] || {}
+
+      const idx = getters.diaries.findIndex(d => d.slug === slug)
+      if (idx != -1) {
+        diary = getters.diaries[idx]
+      }
+
       commit(types.SCOPE_DIARY, { diary });
 
       const day = scopeDate != null ? DateTime.fromSQL(scopeDate) : DateTime.local();
       dispatch('scopeDay', { day }).then(() => {
-        resolve();
+        resolve(diary);
       })
     })
   },
 
   scopeDay ({ commit, getters, dispatch }, { day, force }) {
-    if (day.toSQLDate() === getters.scopedDay.toSQLDate() && !force) {
+    if (day.toSQLDate() === getters.scopedDay.toSQLDate() && !force || getters.scopedDiary.slug == null) {
       return
     }
     

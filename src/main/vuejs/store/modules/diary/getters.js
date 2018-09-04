@@ -36,7 +36,6 @@ export default {
       if (c != null) {
         d.content = c.content;
       }
-
       return d;
     })
   }

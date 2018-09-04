@@ -1,5 +1,5 @@
 <template>
-  <div class="diary-info p-10 d-flex jc-sb ai-c">
+  <div class="diary-info d-flex jc-sb ai-c">
     <span>{{ scopedDay.monthLong }} - {{ scopedDay.weekNumber }}. týždeň {{ scopedDay.year }}</span>
     
     <dropdown
