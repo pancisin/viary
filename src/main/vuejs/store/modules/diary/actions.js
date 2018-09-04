@@ -18,6 +18,25 @@ export default {
     })
   },
 
+  createDiary ({ commit, dispatch }, diary) {
+    commit(types.SET_LOADING_DIARY, true);
+    return new Promise((resolve, reject) => {
+
+        if (diary.name == null || diary.name === '') {
+          reject(new Error('Diary is not properly named !'));
+          return;
+        }
+
+      MeApi.postDiary(diary, result => {
+        // const result = { name: 'test-diary', slug: 'test-diary', description: 'Description' }
+        commit(types.ADD_DIARY, { diary: { ...result} })
+        dispatch('scopeDiary', { slug: result.slug })
+        commit(types.SET_LOADING_DIARY, false);
+        resolve(result)
+      })
+    })
+  },
+
   scopeDiary ({ commit, getters, dispatch }, { slug, scopeDate }) {
     return new Promise((resolve, reject) => {
 
@@ -26,7 +45,7 @@ export default {
         return;
       }
 
-      const diary = getters.diaries[0] || {}
+      var diary = getters.diaries[0] || {}
 
       const idx = getters.diaries.findIndex(d => d.slug === slug)
       if (idx != -1) {
@@ -99,5 +118,9 @@ export default {
         commit(types.SET_SAVING_DIARY, false);
       })
     })
+  },
+
+  flushDiaries ({ commit }) {
+    commit(types.FLUSH_DIARY_MODULE_STATE);
   }
 }

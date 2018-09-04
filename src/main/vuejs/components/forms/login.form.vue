@@ -33,7 +33,7 @@
               class="peer">
             <label
               for="inputCall1"
-              class=" peers peer-greed js-sb ai-c">
+              class="js-sb ai-c">
               <span class="peer peer-greed">Remember Me</span>
             </label>
           </div>

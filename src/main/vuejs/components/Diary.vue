@@ -1,6 +1,6 @@
 <template>
   <div class="diary" v-loading="loadingDiary">
-    <diary-info />
+    <diary-info class="p-10" />
 
     <!-- <diary-transition tag="div" class="diary-week pX-10 pB-10"> -->
       <div class="diary-week pX-10 pB-10">

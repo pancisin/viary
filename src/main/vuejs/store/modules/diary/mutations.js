@@ -1,8 +1,15 @@
 import * as types from '@/store/mutation-types';
+import initialState from './state';
+
+import { DateTime } from 'luxon'
 
 export default {
   [types.SET_DIARIES] (state, { diaries }) {
     state.diaries = diaries;
+  },
+
+  [types.ADD_DIARY] (state, { diary }) {
+    state.diaries.push(diary);
   },
 
   [types.SCOPE_DIARY] (state, { diary }) {
@@ -53,5 +60,15 @@ export default {
 
   [types.SET_SAVING_DIARY] (state, inProgress) {
     state.savingDiaryInProgress = inProgress;
+  },
+
+  [types.FLUSH_DIARY_MODULE_STATE] (state) {
+    state.diaries = [],
+    state.scopedDiary = {},
+    state.scopedDiaryDays = [],
+    state.scopedDiaryWeeks = [],
+    state.scopedDay = DateTime.local().toSQL(),
+    state.loadingDiaryInProgress = false,
+    state.savingDiaryInProgress = false
   }
 }

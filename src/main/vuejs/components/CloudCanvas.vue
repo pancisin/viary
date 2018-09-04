@@ -41,7 +41,7 @@ export default {
 
   .cloud {
     background: #fff;
-    background: linear-gradient(top,  #fff 5%,#f1f1f1 100%);
+    background: linear-gradient(to bottom,  #fff 5%,#f1f1f1 100%);
     border-radius: 100px;
     box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
     height: 120px;

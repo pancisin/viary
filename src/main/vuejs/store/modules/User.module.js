@@ -70,8 +70,8 @@ const actions = {
 
       commit(types.SET_USER, { user: null });
 
+      dispatch('flushDiaries');
       resolve();
-
       // dispatch('resetModelModule');
       // dispatch('resetApiModule');
     });

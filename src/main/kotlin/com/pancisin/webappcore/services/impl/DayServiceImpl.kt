@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component
 import java.util.*
 import javax.persistence.EntityManager
 import javax.transaction.Transactional
+import java.util.ArrayList
+import javax.persistence.criteria.Predicate
+
 
 @Component
 open class DayServiceImpl : DayService {
@@ -39,22 +42,33 @@ open class DayServiceImpl : DayService {
     val diaryAssociate = root.join<Day, Diary>("diary")
     val identityAssociate = root.join<Day, DayIdentity>("identity")
 
-    query.select(root).where(builder.equal(diaryAssociate.get<Diary>("id"), diaryId))
+    val predicates = ArrayList<Predicate>()
+
+    predicates.add(builder.equal(diaryAssociate.get<Diary>("id"), diaryId))
+
+//    query.select(root).where(builder.equal(diaryAssociate.get<Diary>("id"), diaryId))
 
     if (start != null) {
-      query.where(
-        builder.greaterThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), start.dayOfYear),
-        builder.equal(identityAssociate.get<DayIdentity>("year"), start.year)
-      )
+      predicates.add(builder.greaterThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), start.dayOfYear))
+      predicates.add(builder.equal(identityAssociate.get<DayIdentity>("year"), start.year))
+
+//      query.where(
+//        builder.greaterThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), start.dayOfYear),
+//        builder.equal(identityAssociate.get<DayIdentity>("year"), start.year)
+//      )
     }
 
     if (end != null) {
-      query.where(
-        builder.lessThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), end.dayOfYear),
-        builder.equal(identityAssociate.get<DayIdentity>("year"), end.year)
-      )
+      predicates.add(builder.lessThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), end.dayOfYear))
+      predicates.add(builder.equal(identityAssociate.get<DayIdentity>("year"), end.year))
+
+//      query.where(
+//        builder.lessThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), end.dayOfYear),
+//        builder.equal(identityAssociate.get<DayIdentity>("year"), end.year)
+//      )
     }
 
+    query.select(root).where(*predicates.toTypedArray())
     return em.createQuery(query).resultList
   }
 }

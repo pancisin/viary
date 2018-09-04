@@ -31,12 +31,12 @@ const routes = [
     beforeEnter: afterAuth
   },
   {
-    path: '/diary',
+    path: '/',
     component: () => import('@/components/layout/Base.layout'),
     beforeEnter: require_auth,
     children: [
       {
-        path: '',
+        path: '/diary',
         name: 'diary',
         component: () => import('@/components/pages/Diary.page'),
         beforeEnter (to, from, next) {
