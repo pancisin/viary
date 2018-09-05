@@ -46,26 +46,14 @@ open class DayServiceImpl : DayService {
 
     predicates.add(builder.equal(diaryAssociate.get<Diary>("id"), diaryId))
 
-//    query.select(root).where(builder.equal(diaryAssociate.get<Diary>("id"), diaryId))
-
     if (start != null) {
       predicates.add(builder.greaterThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), start.dayOfYear))
       predicates.add(builder.equal(identityAssociate.get<DayIdentity>("year"), start.year))
-
-//      query.where(
-//        builder.greaterThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), start.dayOfYear),
-//        builder.equal(identityAssociate.get<DayIdentity>("year"), start.year)
-//      )
     }
 
     if (end != null) {
       predicates.add(builder.lessThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), end.dayOfYear))
       predicates.add(builder.equal(identityAssociate.get<DayIdentity>("year"), end.year))
-
-//      query.where(
-//        builder.lessThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), end.dayOfYear),
-//        builder.equal(identityAssociate.get<DayIdentity>("year"), end.year)
-//      )
     }
 
     query.select(root).where(*predicates.toTypedArray())

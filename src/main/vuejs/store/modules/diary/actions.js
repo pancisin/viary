@@ -22,13 +22,12 @@ export default {
     commit(types.SET_LOADING_DIARY, true);
     return new Promise((resolve, reject) => {
 
-        if (diary.name == null || diary.name === '') {
-          reject(new Error('Diary is not properly named !'));
-          return;
-        }
+      if (diary.name == null || diary.name === '') {
+        reject(new Error('Diary is not properly named !'));
+        return;
+      }
 
       MeApi.postDiary(diary, result => {
-        // const result = { name: 'test-diary', slug: 'test-diary', description: 'Description' }
         commit(types.ADD_DIARY, { diary: { ...result} })
         dispatch('scopeDiary', { slug: result.slug })
         commit(types.SET_LOADING_DIARY, false);
@@ -62,16 +61,16 @@ export default {
   },
 
   scopeDay ({ commit, getters, dispatch }, { day, force }) {
-    if (day.toSQLDate() === getters.scopedDay.toSQLDate() && !force || getters.scopedDiary.slug == null) {
-      return
-    }
+    // if (day.toSQLDate() === getters.scopedDay.toSQLDate() && !force || getters.scopedDiary.slug == null) {
+    //   return
+    // }
     
-    router.replace({
-      name: 'diary',
-      query: {
-        date_scope: day.toSQLDate()
-      }
-    })
+    // router.replace({
+    //   name: 'diary',
+    //   query: {
+    //     date_scope: day.toSQLDate()
+    //   }
+    // })
 
     return new Promise(resolve => {
       dispatch('loadWeekData', day.weekNumber).then(() => {
@@ -84,7 +83,7 @@ export default {
 
   loadWeekData ({ commit, getters }, weekNumber) {
     const week = DateTime.fromObject({ weekNumber })
-    if (getters.getDiaryWeek(weekNumber) == null) {
+    // if (getters.getDiaryWeek(weekNumber) == null) {
       commit(types.SET_LOADING_DIARY, true);
 
       return new Promise(resolve => {
@@ -98,7 +97,7 @@ export default {
           resolve();
         })
       })
-    }
+    // }
   },
 
   updateScopedDay ({ commit, getters }, content) {

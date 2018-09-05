@@ -14,22 +14,39 @@
       <dropdown-item>
         Profile
       </dropdown-item>
+      <dropdown-item @click="displaySwitchDiaryModal = true">
+        Switch diary
+      </dropdown-item>
       <dropdown-item class="bdT" @click="logoutNow">
         Logout 
         <!-- <i class="fa fa-angle-right fsz-xs mL-10"/> -->
       </dropdown-item>
     </dropdown>
-  </div>
 
-    
+    <modal :show.sync="displaySwitchDiaryModal">
+      <span slot="header">Switch diary</span>
+      <div slot="body">
+        <diary-switch @switched="switchedDiary" />
+      </div>
+    </modal>
+  </div>
 </template>
 
 <script>
-import { Dropdown, DropdownItem } from '@/components/elements/dropdown'
+import { Dropdown, DropdownItem } from '@/components/elements/dropdown';
 import { mapGetters, mapActions } from 'vuex';
+import { Modal } from '@/components/elements';
+import DiarySwitch from './DiarySwitch';
 
 export default {
+  data () {
+    return {
+      displaySwitchDiaryModal: false
+    }
+  },
   components: {
+    Modal,
+    DiarySwitch,
     Dropdown, 
     DropdownItem
   },
@@ -42,11 +59,10 @@ export default {
       this.logout().then(() => {
         this.$router.push({ name: 'signin' })
       })
+    },
+    switchedDiary () {
+      this.displaySwitchDiaryModal = false;
     }
   }
 }
 </script>
-
-<style>
-
-</style>
