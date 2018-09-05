@@ -12,6 +12,7 @@
     "bootstrap": "^4.1.1",
     "debounce": "^1.2.0",
     "font-awesome": "^4.7.0",
+    "gravatar": "^1.6.0",
     "luxon": "^1.2.1",
     "showdown": "^1.8.6",
     "velocity-animate": "^1.5.1",

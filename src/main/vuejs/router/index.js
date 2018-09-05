@@ -50,12 +50,12 @@ const routes = [
           });
         }
       },
+      {
+        path: '/create-diary',
+        name: 'diary.create',
+        component: () => import('@/components/pages/CreateDiary.page')
+      },
     ]
-  },
-  {
-    path: '/create-diary',
-    name: 'diary.create',
-    component: () => import('@/components/pages/CreateDiary.page')
   },
   {
     path: '/signin',

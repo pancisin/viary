@@ -12,7 +12,12 @@
       <label class="text-normal text-dark">Description</label>
       <textarea class="form-control" v-model.trim="diary.description" />
     </div>
-    <button type="submit" class="btn btn-outline-primary">Submit</button>
+    <div class="text-right">
+      <button type="submit" class="btn btn-outline-primary">
+        Submit
+        <i class="fa fa-paper-plane"></i>
+      </button>
+    </div>
   </form>
 </template>
 
