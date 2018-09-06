@@ -1,20 +1,28 @@
 <template>
-  <section class="banner-area position-relative">
-    <div class="overlay overlay-bg"/>
+  <section class="banner-area pos-r">
+    <div class="overlay overlay-bg"></div>
+    <cloud-canvas class="pos-a"/>
+
     <div class="container">
       <div
-        class="row fullscreen justify-content-center align-items-center"
+        class="row ai-c jc-c"
         style="height: 777px;">
-        <div class="col-lg-8">
-          <div class="text-center">
-            <p class="text-uppercase c-white">We work hard, we result perfect</p>
-            <h1 class="text-uppercase c-white">Apigo Data Serving & Analytics</h1>
-            <a
-              href="#"
-              class="primary-btn c-white">
-              <i class="fa fa-globe"/>
-              Explore
-            </a>
+
+        <div class="col-md-6 phone-mockup d-none d-md-block"></div>
+
+        <div class="col-md-6">
+          <div class="text-center c-white">
+            <p class="text-uppercase">Plan your whatever now !</p>
+            <h1 class="text-uppercase c-white">Diary WebApp</h1>
+
+            <router-link :to="{ name: 'signin' }" class="primary-btn c-white mB-10">
+              Enter the web app
+              <span class="lnr lnr-chevron-right va-m"></span>
+            </router-link>
+
+            <p>
+              Or download free mobile app
+            </p>
           </div>
         </div>
       </div>
@@ -23,18 +31,17 @@
 </template>
 
 <script>
+import CloudCanvas from '@/components/CloudCanvas';
 export default {
-
+  components: {
+    CloudCanvas
+  }
 };
 </script>
 
 <style lang="scss">
 .banner-area {
-  background: url(https://colorlib.com/etc/datarc/img/banner.jpg) no-repeat center center/cover;
-
   .overlay-bg {
-    background: -moz-linear-gradient(left, rgba(60, 64, 143, 0.95) 0%, rgba(91, 97, 207, 0.95) 100%);
-    background: -webkit-linear-gradient(left, rgba(60, 64, 143, 0.95) 0%, rgba(91, 97, 207, 0.95) 100%);
     background: linear-gradient(to right, rgba(60, 64, 143, 0.95) 0%, rgba(91, 97, 207, 0.95) 100%);
   }
 
@@ -44,6 +51,11 @@ export default {
     right: 0;
     top: 0;
     bottom: 0;
+  }
+
+  .phone-mockup { 
+    background: url('../../../assets/img/lumia_mockup.png') no-repeat center center/cover;
+    height: 100%;
   }
 }
 </style>

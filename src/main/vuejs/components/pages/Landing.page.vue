@@ -1,11 +1,11 @@
 <template>
   <div>
-    <header-part/>
+    <!-- <header-part/> -->
     <banner-section />
-    <features-section />
-    <about-section />
-    <pricing-section />
-    <contact-section />
+    <!-- <features-section />
+    <about-section /> -->
+    <!-- <pricing-section />
+    <contact-section /> -->
     <toasts />
   </div>
 </template>

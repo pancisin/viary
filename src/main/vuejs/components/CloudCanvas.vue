@@ -2,7 +2,7 @@
 import velocity from 'velocity-animate';
 export default {
   render(h) {
-    return h('div', { class: 'cloud-canvas' }, [ ...Array(7).keys() ].map(() => h('div', {}, [ h('div', { class: 'cloud' }) ])))
+    return h('div', { class: 'cloud-canvas' }, [ ...Array(6).keys() ].map(() => h('div', {}, [ h('div', { class: 'cloud' }) ])))
   },
   mounted () {
     const random = (min, max) => (Math.random() * (max - min)) + min;
