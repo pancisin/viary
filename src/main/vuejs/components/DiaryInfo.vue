@@ -5,7 +5,7 @@
     <dropdown
       class="notifications">
       <span slot="link">
-        <i class="fa fa-2x fa-cog"></i>
+        <span class="lnr lnr-cog fsz-xl"></span>
       </span>
 
       <li>
@@ -35,7 +35,7 @@
         <!-- <i class="fa fa-shopping-basket"></i> -->
         Purchase
       </dropdown-item>
-      <dropdown-item>
+      <dropdown-item @click="displayDiaryOptionsModal = true">
         <!-- <i class="fa fa-cog"></i> -->
         Options
       </dropdown-item>
@@ -54,6 +54,13 @@
         <diary-switch @switched="switchedDiary" />
       </div>
     </modal>
+
+    <modal :show.sync="displayDiaryOptionsModal">
+      <span slot="header">Edit diary</span>
+      <div slot="body">
+        <diary-editor :diary="scopedDiary" /> 
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -62,20 +69,23 @@ import { Dropdown, DropdownItem } from '@/components/elements/dropdown';
 import { mapGetters, mapActions } from 'vuex';
 import { Modal } from '@/components/elements';
 import DiarySwitch from './DiarySwitch';
+import DiaryEditor from './DiaryEditor';
 
 import gravatar from 'gravatar';
 
 export default {
   data () {
     return {
-      displaySwitchDiaryModal: false
+      displaySwitchDiaryModal: false,
+      displayDiaryOptionsModal: false
     }
   },
   components: {
     Modal,
     DiarySwitch,
     Dropdown, 
-    DropdownItem
+    DropdownItem,
+    DiaryEditor
   },
   computed: {
     ...mapGetters(['scopedDay', 'user', 'scopedDiary']),

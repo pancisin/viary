@@ -9,6 +9,8 @@ Vue.config.productionTip = false;
 // STYLES IMPORTS
 import '@/assets/scss/index.scss';
 import 'font-awesome/css/font-awesome.css';
+import 'linearicons/dist/web-font/style.css';
+import 'weather-icons/css/weather-icons.min.css';
 
 // PLUGINS INSTALLATION
 Vue.use(VueResource);

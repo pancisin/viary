@@ -45,7 +45,7 @@ const routes = [
               next();
             }).catch(e => {
               console.warn(e)
-              next({ name: 'diary.create' })
+              next({ name: 'diary.create', props: { intro: true } })
             })
           });
         }

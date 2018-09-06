@@ -5,10 +5,14 @@
       @click="focusDayContent(day, $event)">
 
       <div class="diary-day-header">
-        <span class="diary-day-header-date">
-          {{ day.day }}
+        <span class="va-m">
+          <span class="diary-day-header-date">
+            {{ day.day }}
+          </span>
+          {{ day.weekdayLong }}
         </span>
-        {{ day.weekdayLong }}
+
+        <span class="wi fsz-md float-right mT-5" :class="dayWeather(day)"></span>
       </div>
 
       <textarea 
@@ -24,6 +28,7 @@
 import debounce from 'debounce';
 import { DateTime } from 'luxon';
 import { mapGetters, mapActions } from 'vuex';
+import { WeatherIconsMap } from '@/maps';
 
 export default {
   props: {
@@ -38,6 +43,10 @@ export default {
     ...mapGetters(['scopedDay']),
     DateTime() {
       return DateTime;
+    },
+    weather () {
+      const opts = ['cloud', 'sun', 'drop']
+      return opts[Math.floor(Math.random() * opts.length)];
     }
   },
   methods: {
@@ -56,6 +65,23 @@ export default {
           textAreas[0].focus();
         }
       }
+    },
+
+    dayWeather (day) {
+      const idx = Math.floor(day.weatherData.length / 2)
+
+      let data = day.weatherData[idx];
+      let iconIdx = '';
+
+      if (data != null) {
+        const w = data.weather[0] || {}
+
+        if (w.icon != null) {
+          iconIdx = w.icon.toUpperCase()
+        }
+      }
+
+      return WeatherIconsMap[iconIdx]
     }
   }
 }

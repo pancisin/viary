@@ -16,6 +16,7 @@ export default {
   scopedDay: state => DateTime.fromSQL(state.scopedDay),
   loadingDiary: state => state.loadingDiaryInProgress || state.savingDiaryInProgress,
   savingDiary: state => state.savingDiary,
+  forecastData: state => state.forecastData,
   weekDays: (state, getters) => {
     const scopedDay = getters.scopedDay;
 
@@ -32,7 +33,9 @@ export default {
       const dayNumber = d.diff(d.startOf('year'), 'days').toObject().days
       const c = daysContent.filter(d => d.date_number === dayNumber)[0]
 
-      Object.assign(d, { content: '' })
+      const weatherData = getters.forecastData.filter(w => DateTime.fromMillis(w.dt * 1000).toSQLDate() === d.toSQLDate());
+
+      Object.assign(d, { content: '', weatherData })
       if (c != null) {
         d.content = c.content;
       }

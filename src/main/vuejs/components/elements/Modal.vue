@@ -8,7 +8,7 @@
         v-click-outside="outside"
         :class="{ 'modal-lg' : large }"
         class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bdrs-0">
           <div class="modal-header">
             <h5 class="modal-title">
               <slot name="header">Header</slot>
@@ -18,15 +18,15 @@
               class="close"
               data-dismiss="modal"
               @click="close">
-              <i class="fa fa-times"/>
+              <span class="lnr lnr-cross"></span>
             </button>
           </div>
           <div class="modal-body">
             <slot name="body"/>
           </div>
-          <div class="modal-footer">
+          <!-- <div class="modal-footer">
             <slot name="footer"/>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

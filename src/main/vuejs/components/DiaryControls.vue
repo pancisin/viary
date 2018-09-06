@@ -3,7 +3,7 @@
     <button 
       class="btn btn-outline-light" 
       @click="manipulateScope(-1)">
-      <i class="fa fa-angle-left"></i> 
+      <span class="lnr lnr-chevron-left"></span>
     </button>
 
     <button
@@ -15,7 +15,7 @@
     <button 
       class="btn btn-outline-light" 
       @click="manipulateScope(1)">
-        <i class="fa fa-angle-right"></i>
+        <span class="lnr lnr-chevron-right"></span>
     </button>
   </div>
 </template>

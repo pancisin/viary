@@ -1,5 +1,6 @@
 import DiaryApi from '@/api/diary.api';
 import MeApi from '@/api/me.api';
+import WeatherApi from '@/api/weather.api';
 import * as types from '@/store/mutation-types';
 
 import { DateTime } from 'luxon';
@@ -78,6 +79,8 @@ export default {
         commit(types.SCOPE_DAY, { day: day.toSQL() });
         resolve();
       })
+
+      dispatch('loadWeekWeatherData', day.weekNumber)
     })
   },
 
@@ -98,6 +101,14 @@ export default {
         })
       })
     // }
+  },
+
+  loadWeekWeatherData ({ commit, getters }, weekNumber) {
+    return new Promise(resolve => {
+      WeatherApi.getForecastData('kosice,sk', weather => {
+        commit(types.SET_FORECAST_DATA, weather.list)
+      })
+    })
   },
 
   updateScopedDay ({ commit, getters }, content) {

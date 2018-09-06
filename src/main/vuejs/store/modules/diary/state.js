@@ -6,5 +6,6 @@ export default {
   scopedDiaryWeeks: [],
   scopedDay: DateTime.local().toSQL(),
   loadingDiaryInProgress: false,
-  savingDiaryInProgress: false
+  savingDiaryInProgress: false,
+  forecastData: []
 }

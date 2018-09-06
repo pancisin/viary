@@ -70,5 +70,9 @@ export default {
     state.scopedDay = DateTime.local().toSQL(),
     state.loadingDiaryInProgress = false,
     state.savingDiaryInProgress = false
+  },
+
+  [types.SET_FORECAST_DATA] (state, forecast) {
+    state.forecastData = forecast;
   }
 }
