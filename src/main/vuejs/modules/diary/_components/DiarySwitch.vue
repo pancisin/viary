@@ -34,7 +34,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['diaries', 'scopedDiary', 'scopedDay'])
+    ...mapGetters('$_diary', ['diaries', 'scopedDiary', 'scopedDay'])
   },
   created() {
     this.createOptionValue = guid();
@@ -43,7 +43,7 @@ export default {
     this.selectedDiary = this.scopedDiary.slug
   },
   methods: {
-    ...mapActions(['scopeDiary']),
+    ...mapActions('$_diary', ['scopeDiary']),
     switchDiary() {
       this.scopeDiary({ slug: this.selectedDiary, scopeDate: this.scopedDay.toSQL() }).then(diary => {
         this.$emit('switched', diary);

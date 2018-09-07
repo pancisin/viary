@@ -31,7 +31,7 @@ export default {
     DiaryTransition
   },
   computed: {
-    ...mapGetters(['loadingDiary', 'scopedDay', 'weekDays'])
+    ...mapGetters('$_diary', ['loadingDiary', 'scopedDay', 'weekDays'])
   }
 }
 </script>

@@ -88,7 +88,8 @@ export default {
     DiaryEditor
   },
   computed: {
-    ...mapGetters(['scopedDay', 'user', 'scopedDiary']),
+    ...mapGetters('$_diary', ['scopedDay', 'scopedDiary']),
+    ...mapGetters(['user']),
     profilePic () {
       return gravatar.url(this.user.email)
     }

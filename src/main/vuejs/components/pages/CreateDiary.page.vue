@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import DiaryInfo from '@/components/DiaryInfo';
 import CloudCanvas from '@/components/CloudCanvas';
 import { CreateDiaryForm } from '@/components/forms';
 
@@ -39,7 +38,6 @@ export default {
     }
   },  
   components: {
-    DiaryInfo,
     CloudCanvas,
     CreateDiaryForm
   },

@@ -1,11 +1,12 @@
 import DiaryApi from '@/api/diary.api';
 import MeApi from '@/api/me.api';
 import WeatherApi from '@/api/weather.api';
-import * as types from '@/store/mutation-types';
+
+import * as types from './mutation-types';
 
 import { DateTime } from 'luxon';
 
-import router from '@/router'
+// import router from '@/router'
 
 export default {
   initializeDiaries ({ commit, dispatch }) {

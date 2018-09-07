@@ -40,7 +40,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['scopedDay']),
+    ...mapGetters('$_diary', ['scopedDay']),
     DateTime() {
       return DateTime;
     },
@@ -50,7 +50,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['scopeDay', 'updateScopedDay']),
+    ...mapActions('$_diary', ['scopeDay', 'updateScopedDay']),
 
     dayUpdate: debounce(function(e) {
       this.updateScopedDay(e.target.value)

@@ -29,10 +29,10 @@ export default {
     // this.resetScope();
   },
   computed: {
-    ...mapGetters(['scopedDay']),
+    ...mapGetters('$_diary', ['scopedDay']),
   },
   methods: {
-    ...mapActions(['scopeDay', 'updateScopedDay']),
+    ...mapActions('$_diary', ['scopeDay', 'updateScopedDay']),
     manipulateScope(diff) {
       this.scopeDay({ day: this.scopedDay.plus({ weeks: diff }) })
     },

@@ -1,4 +1,4 @@
-import * as types from '@/store/mutation-types';
+import * as types from './mutation-types';
 import initialState from './state';
 
 import { DateTime } from 'luxon'

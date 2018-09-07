@@ -1,15 +1,16 @@
 <template>
   <div>
-    <diary />
+    <diary-module />
   </div>
 </template>
 
 <script>
-import Diary from '@/components/Diary'
+import { DiaryModule } from '@/modules'
 
 export default {
+  name: 'diary-page',
   components: {
-    Diary
+    DiaryModule
   }
 }
 </script>

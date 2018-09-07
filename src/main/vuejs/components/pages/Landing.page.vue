@@ -11,12 +11,11 @@
 </template>
 
 <script>
-import { HeaderPart } from '@/components/layout/parts';
 import { Toasts } from '@/modules';
 import * as sections from './landing';
+
 export default {
   components: {
-    HeaderPart,
     ...sections,
     Toasts
   }
