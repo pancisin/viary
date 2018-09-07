@@ -3,10 +3,9 @@
     <div class="overlay overlay-bg"></div>
     <cloud-canvas class="pos-a"/>
 
-    <div class="container">
+    <div class="container" id="banner-container">
       <div
-        class="row ai-c jc-c"
-        style="height: 777px;">
+        class="row ai-c jc-c" style="height: 100%">
 
         <div class="col-md-6 phone-mockup d-none d-md-block"></div>
 
@@ -32,9 +31,20 @@
 
 <script>
 import CloudCanvas from '@/components/CloudCanvas';
+import debounce from 'debounce';
+
 export default {
   components: {
     CloudCanvas
+  },
+  mounted () {
+    const adjustHeight = () => {
+      const el = document.getElementById('banner-container');
+      el.style.height = `${window.innerHeight}px`;
+    }
+
+    window.onresize = debounce(adjustHeight, 300);
+    adjustHeight();
   }
 };
 </script>

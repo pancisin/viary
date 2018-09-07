@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="peer">
-          <button class="btn btn-primary">Login</button>
+          <button class="btn btn-outline-primary">Login</button>
         </div>
       </div>
     </div>
