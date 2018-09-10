@@ -1,5 +1,4 @@
-// import DiaryApi from '@/api/diary.api';
-// import MeApi from '@/api/me.api';
+import DiaryApi from '../api/diary.api';
 import WeatherApi from '@/api/weather.api';
 
 import * as types from './mutation-types';
@@ -8,11 +7,13 @@ import { DateTime } from 'luxon';
 
 // import router from '@/router'
 
-export default function ({ MeApi, DiaryApi }) {
+export default function ({ baseUrl }) {
+  const Api = DiaryApi(baseUrl);
+  
   const initializeDiaries = ({ commit, dispatch }) => {
     commit(types.SET_LOADING_DIARY, true);
     return new Promise(resolve => {
-      MeApi.getDiaries(diaries => {
+      Api.getDiaries(diaries => {
         commit(types.SET_DIARIES, { diaries })
         commit(types.SET_LOADING_DIARY, false);  
         resolve(diaries)
@@ -29,7 +30,7 @@ export default function ({ MeApi, DiaryApi }) {
         return;
       }
 
-      MeApi.postDiary(diary, result => {
+      Api.postDiary(diary, result => {
         commit(types.ADD_DIARY, { diary: { ...result} })
         dispatch('scopeDiary', { slug: result.slug })
         commit(types.SET_LOADING_DIARY, false);
@@ -91,7 +92,7 @@ export default function ({ MeApi, DiaryApi }) {
       commit(types.SET_LOADING_DIARY, true);
       console.log(getters)
       return new Promise(resolve => {
-        DiaryApi.getDays(getters.scopedDiary.slug, {
+        Api.getDays(getters.scopedDiary.slug, {
           from: week.startOf('week').toFormat('MM/dd/yyyy'),
           to: week.endOf('week').toFormat('MM/dd/yyyy')
         }, days => {
@@ -119,7 +120,7 @@ export default function ({ MeApi, DiaryApi }) {
     commit(types.SET_SAVING_DIARY, true);
 
     return new Promise(resolve => {
-      DiaryApi.postDay(getters.scopedDiary.slug, {
+      DiaryApiApi.postDay(getters.scopedDiary.slug, {
         date_number: dayNumber,
         year: scopedDay.year,
         content

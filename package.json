@@ -6,7 +6,6 @@
     "serve": "vue-cli-service serve",
     "build": "rimraf src/main/resources/static &&  vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build:core": "vue-cli-service build --target lib --name diary-core ./src/main/vuejs/main.js",
     "build:modules": "vue-cli-service build --target lib --name diary-core ./src/main/vuejs/modules/index.js"
   },
   "dependencies": {
