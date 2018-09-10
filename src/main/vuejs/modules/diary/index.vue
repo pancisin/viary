@@ -12,13 +12,25 @@ const MODULE_NAMESPACE = '$_diary';
 
 import Vue from 'vue';
 
+import './_assets/scss/index.scss';
+
 export default {
   name: 'DiaryContainer',
+  props: {
+    diaryApi: {
+      type: Object,
+      required: true
+    },
+    meApi: {
+      type: Object,
+      required: true
+    }
+  },
   components: {
     Diary
   },
   created () {
-    this.$store.registerModule(MODULE_NAMESPACE, store);
+    this.$store.registerModule(MODULE_NAMESPACE, store({ DiaryApi: this.diaryApi, MeApi: this.meApi }));
     this.$store.dispatch(`${MODULE_NAMESPACE}/initializeDiaries`).then(() => {
       this.$store.dispatch(`${MODULE_NAMESPACE}/scopeDiary`, {}).then(() => {
 

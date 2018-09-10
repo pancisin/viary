@@ -1,5 +1,5 @@
-import DiaryApi from '@/api/diary.api';
-import MeApi from '@/api/me.api';
+// import DiaryApi from '@/api/diary.api';
+// import MeApi from '@/api/me.api';
 import WeatherApi from '@/api/weather.api';
 
 import * as types from './mutation-types';
@@ -8,8 +8,8 @@ import { DateTime } from 'luxon';
 
 // import router from '@/router'
 
-export default {
-  initializeDiaries ({ commit, dispatch }) {
+export default function ({ MeApi, DiaryApi }) {
+  const initializeDiaries = ({ commit, dispatch }) => {
     commit(types.SET_LOADING_DIARY, true);
     return new Promise(resolve => {
       MeApi.getDiaries(diaries => {
@@ -18,9 +18,9 @@ export default {
         resolve(diaries)
       })
     })
-  },
+  }
 
-  createDiary ({ commit, dispatch }, diary) {
+  const createDiary = ({ commit, dispatch }, diary) => {
     commit(types.SET_LOADING_DIARY, true);
     return new Promise((resolve, reject) => {
 
@@ -36,9 +36,9 @@ export default {
         resolve(result)
       })
     })
-  },
+  }
 
-  scopeDiary ({ commit, getters, dispatch }, { slug, scopeDate }) {
+  const scopeDiary = ({ commit, getters, dispatch }, { slug, scopeDate }) => {
     return new Promise((resolve, reject) => {
 
       if (getters.diaries.length === 0) {
@@ -60,9 +60,9 @@ export default {
         resolve(diary);
       })
     })
-  },
+  }
 
-  scopeDay ({ commit, getters, dispatch }, { day, force }) {
+  const scopeDay = ({ commit, getters, dispatch }, { day, force }) => {
     // if (day.toSQLDate() === getters.scopedDay.toSQLDate() && !force || getters.scopedDiary.slug == null) {
     //   return
     // }
@@ -83,9 +83,9 @@ export default {
 
       dispatch('loadWeekWeatherData', day.weekNumber)
     })
-  },
+  }
 
-  loadWeekData ({ commit, getters }, weekNumber) {
+  const loadWeekData = ({ commit, getters }, weekNumber) => {
     const week = DateTime.fromObject({ weekNumber })
     // if (getters.getDiaryWeek(weekNumber) == null) {
       commit(types.SET_LOADING_DIARY, true);
@@ -102,17 +102,17 @@ export default {
         })
       })
     // }
-  },
+  }
 
-  loadWeekWeatherData ({ commit, getters }, weekNumber) {
+  const loadWeekWeatherData = ({ commit, getters }, weekNumber) => {
     return new Promise(resolve => {
       WeatherApi.getForecastData('kosice,sk', weather => {
         commit(types.SET_FORECAST_DATA, weather.list)
       })
     })
-  },
+  }
 
-  updateScopedDay ({ commit, getters }, content) {
+  const updateScopedDay = ({ commit, getters }, content) => {
     const scopedDay = getters.scopedDay;
     const dayNumber = scopedDay.diff(scopedDay.startOf('year'), 'days').toObject().days
 
@@ -129,9 +129,20 @@ export default {
         commit(types.SET_SAVING_DIARY, false);
       })
     })
-  },
+  }
 
-  flushDiaries ({ commit }) {
+  const flushDiaries = ({ commit }) => {
     commit(types.FLUSH_DIARY_MODULE_STATE);
+  }
+
+  return {
+    initializeDiaries,
+    createDiary,
+    scopeDiary,
+    scopeDay,
+    loadWeekData,
+    loadWeekWeatherData,
+    updateScopedDay,
+    flushDiaries
   }
 }

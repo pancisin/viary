@@ -1,5 +1,5 @@
 import Toasts from './toasts';
-import DiaryModule from './diary/index.vue';
+import DiaryModule from './diary';
 
 export {
   Toasts,

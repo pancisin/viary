@@ -16,14 +16,16 @@ module.exports = {
     },
     devtool: 'source-map'
   },
-  chainWebpack: config => {
-    config
-      .plugin('html')
-      .tap(args => {
-        args[0].template = path.resolve(__dirname, 'index.html');
-        return args;
-      });
-  },
+  // chainWebpack: config => {
+  //   config
+  //     .plugin('html')
+  //     .tap(args => {
+  //       if (args[0] != null) {
+  //         args[0].template = path.resolve(__dirname, 'index.html');
+  //       }
+  //       return args;
+  //     });
+  // },
   devServer: {
     open: process.platform === 'darwin',
     host: '0.0.0.0',
