@@ -1,4 +1,4 @@
-import DiaryApi from '../api/diary.api';
+import DiaryApi from '../_api/diary.api';
 import WeatherApi from '@/api/weather.api';
 
 import * as types from './mutation-types';

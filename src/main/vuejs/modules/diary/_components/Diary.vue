@@ -17,8 +17,6 @@ import DiaryDay from './DiaryDay';
 import DiaryControls from './DiaryControls';
 import DiaryInfo from './DiaryInfo';
 
-import DiaryApi from '@/api/diary.api';
-
 import { mapGetters } from 'vuex';
 
 import { DiaryTransition } from '@/components/transitions'
