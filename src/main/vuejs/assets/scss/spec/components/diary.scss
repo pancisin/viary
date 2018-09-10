@@ -10,8 +10,10 @@ $bg-gradient: linear-gradient(to right bottom, #e96443, #904e95);
 
   .diary-controls {
     position: fixed;
-    width: 100%;
+    // width: 100%;
     bottom: 0;
+    left: 0;
+    right: 0;
     background: #fff;
     // border-top: $diary-border;
     // box-shadow: 0px 15px 20px 14px rgba(70, 70, 70, 0.44);

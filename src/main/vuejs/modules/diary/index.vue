@@ -1,7 +1,6 @@
 <template>
   <div>
     <diary />
-    Diary Module
   </div>
 </template>
 
@@ -20,7 +19,14 @@ export default {
   },
   created () {
     this.$store.registerModule(MODULE_NAMESPACE, store);
-    this.$store.dispatch(`${MODULE_NAMESPACE}/initializeDiaries`);
+    this.$store.dispatch(`${MODULE_NAMESPACE}/initializeDiaries`).then(() => {
+      this.$store.dispatch(`${MODULE_NAMESPACE}/scopeDiary`, {}).then(() => {
+
+      }).catch(e => {
+        console.warn(e)
+        this.$router.push({ name: 'diary.create', props: { intro: true } })
+      })
+    });
   },
   beforeDestroy () {
     this.$store.unregisterModule(MODULE_NAMESPACE);

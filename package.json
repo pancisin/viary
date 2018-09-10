@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "rimraf src/main/resources/static &&  vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build:core": "",
+    "build:modules": "vue-cli-service build --target lib --name diary-core ./src/main/vuejs/modules/toasts/index.vue"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",

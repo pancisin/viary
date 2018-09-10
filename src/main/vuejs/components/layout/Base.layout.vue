@@ -1,16 +1,15 @@
 <template>
-  <div>
-    <div class="page-container">
-      <main class="main-content">
+  <div class="container">
+    <!-- <div class="page-container"> -->
+      <!-- <main class="main-content"> -->
         <div
-          v-loading="loading"
-          id="mainContent">
+          v-loading="loading">
           <router-view />
         </div>
-      </main>
+      <!-- </main> -->
 
       <toasts />
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 

@@ -89,7 +89,7 @@ export default {
     const week = DateTime.fromObject({ weekNumber })
     // if (getters.getDiaryWeek(weekNumber) == null) {
       commit(types.SET_LOADING_DIARY, true);
-
+      console.log(getters)
       return new Promise(resolve => {
         DiaryApi.getDays(getters.scopedDiary.slug, {
           from: week.startOf('week').toFormat('MM/dd/yyyy'),
