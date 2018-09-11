@@ -16,7 +16,8 @@ import 'weather-icons/css/weather-icons.min.css';
 // PLUGINS INSTALLATION
 Vue.use(VueResource);
 Vue.use(AuthPlugin, {
-  store
+  store,
+  baseUrl: 'http://diary.convene.sk'
 })
 
 // DIRECTIVES INSTALLATION

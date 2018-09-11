@@ -95,7 +95,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions('$_auth', ['logout']),
     logoutNow() {
       this.logout().then(() => {
         this.$router.push({ name: 'signin' })
