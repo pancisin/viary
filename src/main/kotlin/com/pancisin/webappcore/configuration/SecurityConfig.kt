@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
+import org.springframework.http.HttpMethod
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices
 import org.springframework.security.oauth2.provider.token.TokenStore
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -81,6 +82,7 @@ open class SecurityConfig : WebSecurityConfigurerAdapter() {
       .and()
       .httpBasic()
       .realmName(securityRealm)
+      .and().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll()
       .and()
       .csrf()
       .disable()
