@@ -27,7 +27,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@Order(-1)
+//@Order(-1)
 open class SecurityConfig : WebSecurityConfigurerAdapter() {
 
   @Value("\${security.signing-key}")
@@ -77,10 +77,6 @@ open class SecurityConfig : WebSecurityConfigurerAdapter() {
     auth
       .userDetailsService(userDetailsService)
       .passwordEncoder(passwordEncoder())
-  }
-
-  override fun configure(web: WebSecurity) {
-    web.ignoring().antMatchers(HttpMethod.OPTIONS, "/oauth/token")
   }
 
   override fun configure(http: HttpSecurity) {
