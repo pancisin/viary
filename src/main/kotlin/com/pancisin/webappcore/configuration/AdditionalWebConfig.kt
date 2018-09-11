@@ -7,22 +7,22 @@ import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.filter.CorsFilter
 
-@Configuration
+//@Configuration
 open class AdditionalWebConfig {
-
-  @Bean
-  open fun corsFilter(): FilterRegistrationBean<*> {
-    val source = UrlBasedCorsConfigurationSource()
-    val config = CorsConfiguration().apply {
-      allowCredentials = true
-      addAllowedOrigin("*")
-      addAllowedHeader("*")
-      addAllowedMethod("*")
-    }
-
-    source.registerCorsConfiguration("/**", config)
-    val bean = FilterRegistrationBean(CorsFilter(source))
-    bean.setOrder(0)
-    return bean
-  }
+//
+//  @Bean
+//  open fun corsFilter(): FilterRegistrationBean<*> {
+//    val source = UrlBasedCorsConfigurationSource()
+//    val config = CorsConfiguration().apply {
+//      allowCredentials = true
+//      addAllowedOrigin("*")
+//      addAllowedHeader("*")
+//      addAllowedMethod("*")
+//    }
+//
+//    source.registerCorsConfiguration("/**", config)
+//    val bean = FilterRegistrationBean(CorsFilter(source))
+//    bean.setOrder(0)
+//    return bean
+//  }
 }
