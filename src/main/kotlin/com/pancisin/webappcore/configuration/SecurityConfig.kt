@@ -20,6 +20,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.config.annotation.web.builders.WebSecurity
+
+
 
 @Configuration
 @EnableWebSecurity
@@ -74,6 +77,10 @@ open class SecurityConfig : WebSecurityConfigurerAdapter() {
     auth
       .userDetailsService(userDetailsService)
       .passwordEncoder(passwordEncoder())
+  }
+
+  override fun configure(web: WebSecurity) {
+    web.ignoring().antMatchers(HttpMethod.OPTIONS, "/oauth/token")
   }
 
   override fun configure(http: HttpSecurity) {
