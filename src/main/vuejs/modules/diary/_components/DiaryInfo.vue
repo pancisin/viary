@@ -89,7 +89,7 @@ export default {
   },
   computed: {
     ...mapGetters('$_diary', ['scopedDay', 'scopedDiary']),
-    ...mapGetters(['user']),
+    ...mapGetters('$_auth', ['user']),
     profilePic () {
       return gravatar.url(this.user.email)
     }

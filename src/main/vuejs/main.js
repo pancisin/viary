@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueResource from 'vue-resource';
 import router from '@/router';
 import store from '@/store';
-import AuthPlugin from '@/plugins/auth';
+import { AuthPlugin } from '@/plugins';
 import App from './App.vue';
 
 Vue.config.productionTip = false;

@@ -5,7 +5,7 @@ import store from '@/store';
 Vue.use(VueRouter);
 
 const require_auth = (to, from, next) => {
-  if (!store.getters.authenticated) {
+  if (!store.getters['$_auth/authenticated']) {
     next({
       path: '/signin',
       query: { redirect: to.fullPath }
@@ -16,7 +16,7 @@ const require_auth = (to, from, next) => {
 };
 
 const afterAuth = (to, from, next) => {
-  if (store.getters.authenticated) {
+  if (store.getters['$_auth/authenticated']) {
     next({ name: 'diary' });
   } else {
     next();
