@@ -33,7 +33,8 @@ open class ResourceServerConfig : ResourceServerConfigurerAdapter() {
       .and()
       .authorizeRequests()
       .anyRequest().permitAll()
-      .antMatchers("/actuator/**", "/api-docs/**", "/api/register", "/oauth/token").permitAll()
+      .antMatchers("/actuator/**", "/api-docs/**", "/api/register").permitAll()
+      .antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll()
       .antMatchers("/api/v1/**").authenticated()
       .and().cors().disable()
   }
