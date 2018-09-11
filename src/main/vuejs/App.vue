@@ -14,7 +14,7 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'App',
   computed: {
-    ...mapGetters(['authenticated'])
+    ...mapGetters('$_auth', ['authenticated'])
   },
   created () {
     if (this.authenticated) {
@@ -24,7 +24,8 @@ export default {
     this.initializeApplication();
   },
   methods: {
-    ...mapActions(['initializeUser', 'initializeApplication'])
+    ...mapActions('$_auth', ['initializeUser']),
+    ...mapActions(['initializeApplication'])
   }
 };
 </script>

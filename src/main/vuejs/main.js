@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueResource from 'vue-resource';
 import router from '@/router';
 import store from '@/store';
+import AuthPlugin from '@/plugins/auth';
 import App from './App.vue';
 
 Vue.config.productionTip = false;
@@ -14,6 +15,9 @@ import 'weather-icons/css/weather-icons.min.css';
 
 // PLUGINS INSTALLATION
 Vue.use(VueResource);
+Vue.use(AuthPlugin, {
+  store
+})
 
 // DIRECTIVES INSTALLATION
 import * as directives from '@/directives';

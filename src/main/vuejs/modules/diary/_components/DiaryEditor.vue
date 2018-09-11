@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { EditDiaryForm } from '@/components/forms';
+import { EditDiaryForm } from './forms';
 
 export default {
   props: {

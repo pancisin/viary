@@ -5,13 +5,11 @@
 </template>
 
 <script>
-import { RegisterForm } from '@/components/forms';
 import { SigninLayout } from '@/components/layout';
 
 export default {
   components: {
-    SigninLayout,
-    RegisterForm
+    SigninLayout
   }
 };
 </script>

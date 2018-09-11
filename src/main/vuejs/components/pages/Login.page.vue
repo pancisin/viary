@@ -5,13 +5,11 @@
 </template>
 
 <script>
-import { LoginForm } from '@/components/forms';
 import { SigninLayout } from '@/components/layout';
 
 export default {
   components: {
     SigninLayout,
-    LoginForm
   },
   methods: {
     redirect () {

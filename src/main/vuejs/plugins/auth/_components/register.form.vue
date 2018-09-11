@@ -57,7 +57,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['register']),
+    ...mapActions('$_auth', ['register']),
     submit () {
       this.register(this.user).then(() => {
         this.$router.replace({ name: 'home' });

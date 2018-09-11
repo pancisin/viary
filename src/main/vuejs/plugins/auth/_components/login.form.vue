@@ -67,7 +67,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions('$_auth', ['login']),
     submit () {
       const ret = this.login({
         credentials: this.credentials,
