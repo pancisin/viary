@@ -1,37 +1,27 @@
 <template>
-  <div>
-    <!-- <sidebar-part /> -->
-
-    <div class="page-container">
-      <!-- <header-part /> -->
-
-      <main class="main-content">
+  <div class="container">
+    <!-- <div class="page-container"> -->
+      <!-- <main class="main-content"> -->
         <div
-          v-loading="loading"
-          id="mainContent">
+          v-loading="loading">
           <router-view />
         </div>
-      </main>
+      <!-- </main> -->
 
-      <toasts />
-      <!-- <footer-part /> -->
-    </div>
+      <!-- <toasts /> -->
+    <!-- </div> -->
   </div>
 </template>
 
 <script>
-import { HeaderPart, SidebarPart, FooterPart } from './parts';
 import { mapGetters } from 'vuex';
-import { PageTransition } from '@/components/transitions'
+import { PageTransition } from '@/components/transitions';
 
-import { Toasts } from '@/modules';
+// import { Toasts } from 'diary-core/dist/diary-core.common.js';
 
 export default {
   components: {
-    HeaderPart,
-    SidebarPart,
-    FooterPart,
-    Toasts,
+    // Toasts,
     PageTransition
   },
   computed: {

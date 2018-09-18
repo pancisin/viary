@@ -1,7 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import UserModule from '@/store/modules/User.module';
-import DiaryModule from '@/store/modules/diary';
 import SettingsModule from '@/store/modules/Settings.module';
 
 Vue.use(Vuex);
@@ -17,9 +15,7 @@ const store = new Vuex.Store({
   strict: true,
   getters,
   modules: {
-    userModule: UserModule,
-    settingsModule: SettingsModule,
-    diaryModule: DiaryModule
+    settingsModule: SettingsModule
   }
 });
 

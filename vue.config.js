@@ -4,25 +4,25 @@ module.exports = {
   outputDir: 'src/main/resources/static',
   configureWebpack: {
     entry: [
-      'babel-polyfill', 
+      'babel-polyfill',
       path.resolve(__dirname, 'src/main/vuejs/main.js')
     ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src/main/vuejs'),
-        'components': path.resolve(__dirname, 'src/main/vuejs/components'),
-        'assets': path.resolve(__dirname, 'src/main/vuejs/assets')
+        components: path.resolve(__dirname, 'src/main/vuejs/components'),
+        assets: path.resolve(__dirname, 'src/main/vuejs/assets')
       }
     },
     devtool: 'source-map'
   },
   chainWebpack: config => {
-    config
-      .plugin('html')
-      .tap(args => {
+    config.plugin('html').tap(args => {
+      if (args[0] != null) {
         args[0].template = path.resolve(__dirname, 'index.html');
-        return args;
-      });
+      }
+      return args;
+    });
   },
   devServer: {
     open: process.platform === 'darwin',

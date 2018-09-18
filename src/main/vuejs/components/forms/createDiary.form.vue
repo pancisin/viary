@@ -30,7 +30,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['createDiary']),
+    ...mapActions('$_diary', ['createDiary']),
     submit () {
       this.createDiary(this.diary).then(() => {
         this.$router.push({ name: 'diary' })

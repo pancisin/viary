@@ -1,30 +1,31 @@
 <template>
   <div id="app">
-    <transition
+    <!-- <transition
       name="fade"
       mode="out-in">
-        <router-view />
-    </transition>
+    </transition> -->
+    <router-view />
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+// import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'App',
   computed: {
-    ...mapGetters(['authenticated'])
+    // ...mapGetters('$_auth', ['authenticated'])
   },
   created () {
-    if (this.authenticated) {
-      this.initializeUser();
-    }
+    // if (this.authenticated) {
+    //   this.initializeUser();
+    // }
 
-    this.initializeApplication();
+    // this.initializeApplication();
   },
   methods: {
-    ...mapActions(['initializeUser', 'initializeApplication'])
+    // ...mapActions('$_auth', ['initializeUser']),
+    // ...mapActions(['initializeApplication'])
   }
 };
 </script>

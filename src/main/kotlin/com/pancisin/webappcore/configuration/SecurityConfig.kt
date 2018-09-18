@@ -12,17 +12,22 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
+import org.springframework.core.annotation.Order
+import org.springframework.http.HttpMethod
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices
 import org.springframework.security.oauth2.provider.token.TokenStore
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.config.annotation.web.builders.WebSecurity
+
+
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-//@Order(SecurityProperties.BASIC_AUTH_ORDER)
+//@Order(-1)
 open class SecurityConfig : WebSecurityConfigurerAdapter() {
 
   @Value("\${security.signing-key}")
@@ -81,6 +86,7 @@ open class SecurityConfig : WebSecurityConfigurerAdapter() {
       .and()
       .httpBasic()
       .realmName(securityRealm)
+      .and().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll()
       .and()
       .csrf()
       .disable()

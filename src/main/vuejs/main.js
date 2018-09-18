@@ -1,19 +1,13 @@
 import Vue from 'vue';
+import App from './App.vue';
 import VueResource from 'vue-resource';
 import router from '@/router';
 import store from '@/store';
-import App from './App.vue';
-
-Vue.config.productionTip = false;
+import { AuthPlugin } from 'diary-core/dist/diary-core.umd.js';
 
 // STYLES IMPORTS
-import '@/assets/scss/index.scss';
-import 'font-awesome/css/font-awesome.css';
-import 'linearicons/dist/web-font/style.css';
-import 'weather-icons/css/weather-icons.min.css';
-
-// PLUGINS INSTALLATION
-Vue.use(VueResource);
+// import '@/assets/scss/index.scss';
+import 'diary-core/dist/diary-core.css';
 
 // DIRECTIVES INSTALLATION
 import * as directives from '@/directives';
@@ -27,14 +21,23 @@ for (const f in filters) {
   Vue.filter(f, filters[f]);
 }
 
+Vue.use(VueResource);
+Vue.config.productionTip = false;
+
 // INTERCEPTORS INSTALLATION
 import * as interceptors from '@/api/interceptors';
 for (const i in interceptors) {
   Vue.http.interceptors.push(interceptors[i]);
 }
 
-new Vue({
+// PLUGINS INSTALLATION
+Vue.use(AuthPlugin, {
+  store
+});
+
+export default new Vue({
+  components: { App },
   router,
   store,
   render: h => h(App)
-}).$mount('#app');
+}).$mount('#app')

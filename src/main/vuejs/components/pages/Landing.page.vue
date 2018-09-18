@@ -6,19 +6,18 @@
     <about-section /> -->
     <!-- <pricing-section />
     <contact-section /> -->
-    <toasts />
+    <!-- <toasts /> -->
   </div>
 </template>
 
 <script>
-import { HeaderPart } from '@/components/layout/parts';
-import { Toasts } from '@/modules';
+// import { Toasts } from 'diary-core/dist/diary-core.common.js';
 import * as sections from './landing';
+
 export default {
   components: {
-    HeaderPart,
-    ...sections,
-    Toasts
+    ...sections
+    // Toasts
   }
 };
 </script>
