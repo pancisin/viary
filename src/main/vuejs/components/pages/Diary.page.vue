@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { DiaryModule } from '@/modules'
+import { DiaryModule } from 'diary-core/dist/diary-core.common.js'
 export default {
   name: 'diary-page',
   components: {

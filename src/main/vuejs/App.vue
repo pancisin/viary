@@ -9,23 +9,23 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+// import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'App',
   computed: {
-    ...mapGetters('$_auth', ['authenticated'])
+    // ...mapGetters('$_auth', ['authenticated'])
   },
   created () {
-    if (this.authenticated) {
-      this.initializeUser();
-    }
+    // if (this.authenticated) {
+    //   this.initializeUser();
+    // }
 
-    this.initializeApplication();
+    // this.initializeApplication();
   },
   methods: {
-    ...mapActions('$_auth', ['initializeUser']),
-    ...mapActions(['initializeApplication'])
+    // ...mapActions('$_auth', ['initializeUser']),
+    // ...mapActions(['initializeApplication'])
   }
 };
 </script>

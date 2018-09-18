@@ -8,20 +8,20 @@
         </div>
       <!-- </main> -->
 
-      <toasts />
+      <!-- <toasts /> -->
     <!-- </div> -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import { PageTransition } from '@/components/transitions'
+import { PageTransition } from '@/components/transitions';
 
-import { Toasts } from '@/modules';
+// import { Toasts } from 'diary-core/dist/diary-core.common.js';
 
 export default {
   components: {
-    Toasts,
+    // Toasts,
     PageTransition
   },
   computed: {
