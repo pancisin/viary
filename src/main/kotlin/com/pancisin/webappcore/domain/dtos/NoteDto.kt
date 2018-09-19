@@ -3,11 +3,11 @@ package com.pancisin.webappcore.domain.dtos
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.pancisin.webappcore.domain.Note
 import java.util.*
-import javax.validation.constraints.NotEmpty
+import javax.validation.constraints.NotBlank
 
 data class NoteDto(
 
-  @NotEmpty
+  @NotBlank
   @JsonProperty("content")
   var content: String? = null,
 

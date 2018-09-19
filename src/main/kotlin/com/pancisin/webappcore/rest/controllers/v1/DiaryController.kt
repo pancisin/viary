@@ -58,9 +58,7 @@ class DiaryController {
   ): ResponseEntity<DayDto> {
     val stored = findDiary(diaryIdentifier)
 
-    val day = Day(dateNumber = dayDto.dateNumber, year = dayDto.year, diary = stored).apply {
-      content = dayDto.content.toString()
-    }
+    val day = Day(dateNumber = dayDto.dateNumber, year = dayDto.year, diary = stored)
 
     dayService.save(day)
     return ResponseEntity.ok(dayDto)
@@ -79,9 +77,7 @@ class DiaryController {
       dateNumber = dateNumber,
       year = year,
       diary = stored
-    ).apply {
-      content = dayDto.content.toString()
-    }
+    )
 
     dayService.save(day)
     return ResponseEntity.ok(DayDto.fromDay(day))

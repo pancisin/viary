@@ -1,6 +1,5 @@
 package com.pancisin.webappcore.domain
 
-import com.pancisin.webappcore.domain.dtos.DayDto
 import com.pancisin.webappcore.domain.embeddable.DayIdentity
 import javax.persistence.*
 
@@ -27,7 +26,6 @@ class Day(dateNumber: Int, year: Int, diary: Diary?) {
   @Column(
     name = "content"
   )
-  var content: String = ""
 
   @OneToMany(mappedBy = "day")
   var notes: List<Note> = ArrayList()

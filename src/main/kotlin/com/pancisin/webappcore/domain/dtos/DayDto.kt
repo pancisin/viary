@@ -10,9 +10,6 @@ data class DayDto (
   @JsonProperty("year")
   var year: Int,
 
-  @JsonProperty("content")
-  var content: String? = null,
-
   @JsonProperty("notes")
   var notes: List<NoteDto> = ArrayList()
 ) {
@@ -20,7 +17,6 @@ data class DayDto (
     fun fromDay(day: Day) = DayDto(
       dateNumber = day.identity!!.dateNumber!!,
       year = day.identity!!.year!!,
-      content = day.content,
       notes = day.notes.map { NoteDto.fromNote(it) }
     )
   }
