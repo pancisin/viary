@@ -8,4 +8,5 @@ import java.util.*
 interface NoteService {
   fun save(note: Note) : Note
   fun findById(noteId: UUID) : Note
+  fun deleteNote(note: Note) : Unit?
 }

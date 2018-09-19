@@ -3,7 +3,7 @@ import App from './App.vue';
 import VueResource from 'vue-resource';
 import router from '@/router';
 import store from '@/store';
-import { AuthPlugin } from 'diary-core/dist/diary-core.umd.js';
+import { AuthPlugin } from 'diary-core/dist/diary-core.common.js';
 
 // STYLES IMPORTS
 // import '@/assets/scss/index.scss';

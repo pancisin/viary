@@ -72,12 +72,12 @@ open class DayServiceImpl : DayService {
     predicates.add(builder.equal(diaryAssociate.get<Diary>("id"), diaryId))
 
     if (start != null) {
-      predicates.add(builder.greaterThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), start.dayOfYear))
+      predicates.add(builder.greaterThanOrEqualTo(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), start.dayOfYear))
       predicates.add(builder.equal(identityAssociate.get<DayIdentity>("year"), start.year))
     }
 
     if (end != null) {
-      predicates.add(builder.lessThan(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), end.dayOfYear))
+      predicates.add(builder.lessThanOrEqualTo(identityAssociate.get<DayIdentity>("dateNumber").`as`(Int::class.java), end.dayOfYear))
       predicates.add(builder.equal(identityAssociate.get<DayIdentity>("year"), end.year))
     }
 

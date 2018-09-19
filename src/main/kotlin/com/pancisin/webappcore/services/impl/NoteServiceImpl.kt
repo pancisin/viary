@@ -1,9 +1,7 @@
 package com.pancisin.webappcore.services.impl
 
-import com.pancisin.webappcore.domain.Day
 import com.pancisin.webappcore.domain.Note
 import com.pancisin.webappcore.repositories.NoteRepository
-import com.pancisin.webappcore.services.DayService
 import com.pancisin.webappcore.services.NoteService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -38,4 +36,5 @@ open class NoteServiceImpl : NoteService {
   }
 
   override fun findById(noteId: UUID) = noteRepository.getOne(noteId)
+  override fun deleteNote(note: Note) = noteRepository.delete(note)
 }

@@ -28,4 +28,11 @@ class NoteController {
     noteService.save(stored)
     return ResponseEntity.ok(NoteDto.fromNote(stored))
   }
+
+  @DeleteMapping
+  fun deleteNote (@PathVariable(name = "noteId") noteId: UUID) : ResponseEntity<String> {
+    val stored = noteService.findById(noteId)
+    noteService.deleteNote(stored)
+    return ResponseEntity.ok("")
+  }
 }
