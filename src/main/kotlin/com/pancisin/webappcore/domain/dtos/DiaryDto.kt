@@ -5,7 +5,7 @@ import com.pancisin.webappcore.domain.Diary
 data class DiaryDto(
   val name: String,
   val description: String,
-  var slug: String? = null
+  var slug: String?
 ) {
   companion object {
     fun fromDiary(diary: Diary) = DiaryDto(

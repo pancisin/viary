@@ -28,4 +28,7 @@ class Day(dateNumber: Int, year: Int, diary: Diary?) {
     name = "content"
   )
   var content: String = ""
+
+  @OneToMany(mappedBy = "day")
+  var notes: List<Note> = ArrayList()
 }

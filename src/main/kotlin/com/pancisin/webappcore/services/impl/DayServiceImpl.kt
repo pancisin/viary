@@ -11,6 +11,7 @@ import java.util.*
 import javax.persistence.EntityManager
 import javax.transaction.Transactional
 import java.util.ArrayList
+import javax.persistence.NoResultException
 import javax.persistence.criteria.Predicate
 
 
@@ -19,6 +20,30 @@ open class DayServiceImpl : DayService {
 
   @Autowired
   lateinit var em: EntityManager
+
+  override fun findByDate(diaryId: UUID, dateNumber: Int, year: Int): Day? {
+    val builder = em.criteriaBuilder
+
+    val query  = builder.createQuery(Day::class.java)
+    val root = query.from(Day::class.java)
+
+    val diaryAssociate = root.join<Day, Diary>("diary")
+    val identityAssociate = root.join<Day, DayIdentity>("identity")
+
+    val predicates = ArrayList<Predicate>()
+
+    query.select(root).where(
+      builder.equal(diaryAssociate.get<Diary>("id"), diaryId),
+      builder.equal(identityAssociate.get<DayIdentity>("dateNumber"), dateNumber),
+      builder.equal(identityAssociate.get<DayIdentity>("year"), year)
+    )
+
+    try {
+      return em.createQuery(query).singleResult
+    } catch (e : NoResultException) {
+      return null
+    }
+  }
 
   @Transactional
   override fun save(day: Day): Day {

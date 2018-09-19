@@ -17,4 +17,5 @@ interface DayService {
    * @return list of days filtered by diary entity and optionally by date span
    */
   fun findByDiary(diaryId: UUID, start: DateTime?, end: DateTime?) : List<Day>
+  fun findByDate(diaryId: UUID, dateNumber: Int, year: Int) : Day?
 }
