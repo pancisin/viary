@@ -51,6 +51,20 @@ class DiaryController {
     ))
   }
 
+  @PutMapping
+  fun putDiary(
+    @PathVariable(name = "diaryIdentifier") diaryIdentifier: String,
+    @RequestBody diaryDto: DiaryDto
+  ): ResponseEntity<DiaryDto> {
+    val diary = findDiary(diaryIdentifier).apply {
+      name = diaryDto.name
+      description = diaryDto.description
+    }
+    
+    diaryService.save(diary)
+    return ResponseEntity.ok(DiaryDto.fromDiary(diary))
+  }
+
   @PostMapping("/day")
   fun postDiaryDay(
     @PathVariable(name = "diaryIdentifier") diaryIdentifier: String,
