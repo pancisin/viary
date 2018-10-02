@@ -60,7 +60,7 @@ class DiaryController {
       name = diaryDto.name
       description = diaryDto.description
     }
-    
+
     diaryService.save(diary)
     return ResponseEntity.ok(DiaryDto.fromDiary(diary))
   }

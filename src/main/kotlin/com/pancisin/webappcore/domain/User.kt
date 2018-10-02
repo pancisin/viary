@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import javax.persistence.*
 import javax.persistence.FetchType
 import javax.persistence.ManyToMany
+import javax.validation.constraints.Email
 
 @Entity
 @Table(name = "users")
@@ -15,7 +16,12 @@ data class User(
   @Column(name = "id")
   var id: Long? = null,
 
-  @Column(name = "email", unique = true, updatable = false, nullable = false)
+  @Email
+  @Column(
+    name = "email",
+    unique = true,
+    updatable = false,
+    nullable = false)
   val email: String? = null,
 
   @Column(name = "password")

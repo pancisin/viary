@@ -60,6 +60,7 @@ open class SecurityConfig : WebSecurityConfigurerAdapter() {
     val defaultTokenServices = DefaultTokenServices()
     defaultTokenServices.setTokenStore(tokenStore())
     defaultTokenServices.setSupportRefreshToken(true)
+    defaultTokenServices.setAccessTokenValiditySeconds(0)
     return defaultTokenServices
   }
 
