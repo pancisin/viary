@@ -12,12 +12,16 @@ data class NoteDto(
   var content: String? = null,
 
   @JsonProperty(access = JsonProperty.Access.READ_ONLY, value = "id")
-  var id: UUID? = null
+  var id: UUID? = null,
+
+  @JsonProperty("time")
+  var time: String? = null
 ) {
   companion object {
       fun fromNote(note: Note) = NoteDto(
         id = note.id,
-        content = note.content
+        content = note.content,
+        time = note.time
       )
   }
 }
