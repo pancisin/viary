@@ -6,7 +6,9 @@ import com.pancisin.webappcore.domain.Note
 import com.pancisin.webappcore.domain.dtos.DayDto
 import com.pancisin.webappcore.domain.dtos.DiaryDto
 import com.pancisin.webappcore.domain.dtos.NoteDto
+import com.pancisin.webappcore.domain.dtos.NoteWsDto
 import com.pancisin.webappcore.domain.embeddable.DayIdentity
+import com.pancisin.webappcore.domain.enums.CrudOperation
 import com.pancisin.webappcore.services.DayService
 import com.pancisin.webappcore.services.DiaryService
 import com.pancisin.webappcore.services.NoteService
@@ -14,6 +16,7 @@ import org.joda.time.DateTime
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.ResponseEntity
+import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.web.bind.annotation.*
 import java.util.*
 import javax.validation.Valid
@@ -30,6 +33,9 @@ class DiaryController {
 
   @Autowired
   lateinit var noteService: NoteService
+
+  @Autowired
+  lateinit var websocket: SimpMessagingTemplate
 
   private fun findDiary(diaryIdentifier: String): Diary {
     try {
@@ -115,6 +121,10 @@ class DiaryController {
     val stored = Note(content = note.content, day = storedDay)
     noteService.save(stored)
 
+    val noteWsDto = NoteWsDto.fromNote(stored).apply {
+      op = CrudOperation.CREATE
+    }
+    websocket.convertAndSend("/topic/${storedDiary.slug}", noteWsDto)
     return ResponseEntity.ok(NoteDto.fromNote(stored))
   }
 

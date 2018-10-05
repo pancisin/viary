@@ -38,7 +38,11 @@ module.exports = {
       '/oauth': {
         target: 'http://localhost:8180',
         secure: false
-      }
+      },
+      '/gs-guide-websocket': {
+        target: 'http://localhost:8180',
+        secure: false
+      },
     }
   }
 };

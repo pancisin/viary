@@ -3,7 +3,7 @@ import App from './App.vue';
 import VueResource from 'vue-resource';
 import router from '@/router';
 import store from '@/store';
-import { AuthPlugin } from 'diary-core/dist/diary-core.common.js';
+import { AuthPlugin, WebSocketPlugin } from 'diary-core/dist/diary-core.common.js';
 
 // STYLES IMPORTS
 // import '@/assets/scss/index.scss';
@@ -23,6 +23,8 @@ for (const f in filters) {
 
 Vue.use(VueResource);
 Vue.config.productionTip = false;
+
+Vue.use(WebSocketPlugin, {})
 
 // INTERCEPTORS INSTALLATION
 import * as interceptors from '@/api/interceptors';

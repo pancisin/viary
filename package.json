@@ -11,7 +11,7 @@
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.1.1",
     "debounce": "^1.2.0",
-    "diary-core": "^0.2.11",
+    "diary-core": "^0.2.13",
     "luxon": "^1.2.1",
     "velocity-animate": "^1.5.1",
     "vue": "^2.5.16",

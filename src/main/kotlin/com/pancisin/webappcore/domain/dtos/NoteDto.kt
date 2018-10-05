@@ -18,10 +18,10 @@ data class NoteDto(
   var time: String? = null
 ) {
   companion object {
-      fun fromNote(note: Note) = NoteDto(
-        id = note.id,
-        content = note.content,
-        time = note.time
-      )
+    fun fromNote(note: Note) = NoteDto(
+      id = note.id,
+      content = note.content,
+      time = note.time
+    )
   }
 }
