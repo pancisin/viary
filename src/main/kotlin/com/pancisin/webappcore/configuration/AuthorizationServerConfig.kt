@@ -9,9 +9,13 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Primary
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices
 import org.springframework.security.oauth2.provider.token.TokenEnhancer
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter
 import org.springframework.security.oauth2.provider.token.TokenStore
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore
 import java.util.*
 
 @Configuration
@@ -45,12 +49,15 @@ open class AuthorizationServerConfig : AuthorizationServerConfigurerAdapter() {
   @Autowired
   lateinit var authenticationManager: AuthenticationManager
 
+  @Autowired
+  lateinit var tokenServices: DefaultTokenServices
+
   override fun configure(configurer: ClientDetailsServiceConfigurer) {
     configurer
       .inMemory()
       .withClient(clientId)
       .secret("{noop}${clientSecret}")
-      .authorizedGrantTypes(grantType!!)
+      .authorizedGrantTypes("client_credentials", "password", "refresh_token")
       .scopes(scopeRead, scopeWrite)
       .resourceIds(resourceIds!!)
   }
@@ -62,6 +69,6 @@ open class AuthorizationServerConfig : AuthorizationServerConfigurerAdapter() {
       .accessTokenConverter(accessTokenConverter)
       .tokenEnhancer(enhancerChain)
       .authenticationManager(authenticationManager)
+      .tokenServices(tokenServices)
   }
-
 }
