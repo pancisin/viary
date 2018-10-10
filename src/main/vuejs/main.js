@@ -34,12 +34,13 @@ for (const i in interceptors) {
 
 // PLUGINS INSTALLATION
 Vue.use(AuthPlugin, {
-  store
-});
-
-export default new Vue({
-  components: { App },
-  router,
   store,
-  render: h => h(App)
-}).$mount('#app')
+  oncomplete: _ => {
+    new Vue({
+      components: { App },
+      router,
+      store,
+      render: h => h(App)
+    }).$mount('#app')
+  }
+});
