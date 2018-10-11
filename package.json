@@ -11,7 +11,7 @@
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.1.1",
     "debounce": "^1.2.0",
-    "diary-core": "^0.2.20",
+    "diary-core": "^0.2.21",
     "luxon": "^1.2.1",
     "velocity-animate": "^1.5.1",
     "vue": "^2.5.16",
@@ -25,6 +25,7 @@
     "@vue/cli-service": "^3.0.0-beta.11",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
+    "sw-precache-webpack-plugin": "^0.11.5",
     "vue-template-compiler": "^2.5.16"
   },
   "eslintConfig": {

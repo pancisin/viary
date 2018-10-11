@@ -1,4 +1,6 @@
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const path = require('path');
+
 module.exports = {
   // outputDir: path.resolve(__dirname, 'src/main/resources/static'),
   outputDir: 'src/main/resources/static',
@@ -14,6 +16,17 @@ module.exports = {
         assets: path.resolve(__dirname, 'src/main/vuejs/assets')
       }
     },
+    plugins: [
+      new SWPrecacheWebpackPlugin(
+        {
+          cacheId: 'viary-webapp',
+          filename: 'viary-webapp-sw.js',
+          staticFileGlobs: ['src/main/resources/static/**/*.{js,html,css}'],
+          minify: true,
+          stripPrefix: 'src/main/resources/static/'
+        }
+      ),
+    ],
     devtool: 'source-map'
   },
   chainWebpack: config => {

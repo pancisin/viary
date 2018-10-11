@@ -44,3 +44,9 @@ Vue.use(AuthPlugin, {
     }).$mount('#app')
   }
 });
+
+(function() {
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/viary-webapp-sw.js');
+  }
+})();
