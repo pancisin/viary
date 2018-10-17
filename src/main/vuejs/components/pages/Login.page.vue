@@ -1,6 +1,6 @@
 <template>
   <signin-layout title="Login">
-    <login-form :success="redirect" />
+    <login-form :onsignup="onsignup" :success="redirect" />
   </signin-layout>
 </template>
 
@@ -17,6 +17,9 @@ export default {
         ? this.$route.query.referer
         : '/';
       this.$router.push({ path: referer });
+    },
+    onsignup () {
+      this.$router.push({ name: 'signup' })
     }
   }
 };
