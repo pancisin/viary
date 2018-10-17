@@ -7,7 +7,20 @@
       <div
         class="row ai-c jc-c" style="height: 100%">
 
-        <div class="col-md-6 phone-mockup d-none d-md-block"></div>
+        <!-- <div class="col-md-6 phone-mockup d-none d-md-block"> -->
+        <div class="col-md-6 d-none d-md-block">
+          <div class="device-wrapper">
+            <div class="device" data-device="MacbookPro" data-orientation="portrait" data-color="black">
+              <div class="screen">
+                <!-- PUT CONTENTS HERE -->
+                <img :src="mobileScreenshot">
+              </div>
+              <div class="button">
+                <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="col-md-6">
           <div class="text-center c-white">
@@ -33,9 +46,16 @@
 import CloudCanvas from '@/components/CloudCanvas';
 import debounce from 'debounce';
 
+import 'html5-device-mockups/dist/device-mockups.min.css';
+
 export default {
   components: {
     CloudCanvas
+  },
+  computed : {
+    mobileScreenshot() {
+      return require('@/assets/img/screenshot_desktop178.png')
+    }
   },
   mounted () {
     const adjustHeight = () => {
@@ -64,8 +84,17 @@ export default {
   }
 
   .phone-mockup { 
-    background: url('../../../assets/img/lumia_mockup.png') no-repeat center center/cover;
+    background: url('../../../assets/img/lumia_mockup.png') no-repeat center center/contain;
     height: 100%;
+  }
+
+  .device-wrapper {
+    max-width: none;
+
+    .screen img {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>
