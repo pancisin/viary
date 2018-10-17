@@ -42,6 +42,9 @@ Vue.use(AuthPlugin, {
       store,
       render: h => h(App)
     }).$mount('#app')
+  },
+  onlogout: _ => {
+    router.push({ name: 'signin' })
   }
 });
 
