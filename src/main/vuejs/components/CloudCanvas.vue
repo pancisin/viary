@@ -30,7 +30,8 @@ export default {
 
 <style lang="scss">
 .cloud-canvas {
-  background: #00b4ff;
+  background: #000;
+  // background: #00b4ff;
   bottom: 0;
 	left: 0;
 	padding-top: 50px;

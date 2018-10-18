@@ -5,6 +5,11 @@
     <div
       id="signin-wrapper"
       class="col-sm-6 col-md-4 bd">
+      <div class="text-right">
+        <router-link to="/" class="">
+          <i class="lnr lnr-cross fsz-xl"></i>
+        </router-link>
+      </div>
       <h4 class="c-grey-900 mB-40">{{ title }}</h4>
       <slot/>
     </div>
@@ -45,7 +50,8 @@ export default {
 
 
 .overlay-bg {
-    background: linear-gradient(to right, rgba(60, 64, 143, 0.95) 0%, rgba(91, 97, 207, 0.95) 100%);
+    // background: linear-gradient(to right, rgba(60, 64, 143, 0.95) 0%, rgba(91, 97, 207, 0.95) 100%);
+    background: rgba(19, 44, 57, 0.98);
   }
 
   .overlay {

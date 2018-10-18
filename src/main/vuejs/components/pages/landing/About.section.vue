@@ -4,23 +4,23 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="studio-content">
-            <p class="text-uppercase c-white">We create top class designs</p>
+            <p class="text-uppercase c-white">
+              Know Thyself
+            </p>
             <h2 class="h1 c-white text-uppercase mb-20">
-              A Digital Studio Crafting <br> Tech Business
+              Why not try Viary ?
             </h2>
             <p class="c-white mB-30">
-              Computer users and programmers have become so accustomed to using Windows,
-              even for the changing capabilities and the appearances of the graphical
-              interface of the versions, therefore it has remained Microsoft’s product.
-              Although, Lycoris, Red Hat, Mandrake,
+              Writing diary or daily journal seems to be simple and worthless at some point. 
+              But you might be surprised how effectivelly it can better your time management 
+              and overall self-awareness. Simple day notes can provide you option to keep track
+              of important decisions to not forget and see your progress in time. Reading
+              throught notes in past you can remember who you were. And based on occasional
+              walkthrough past thoughts may enhance reflection, organizational skills and even may
+              give more meaning to your life.
+
+              <!-- By remembering who you were yesterday, you can avoid making the same mistake today. -->
             </p>
-            <a
-              href="#"
-              class="primary-btn c-white d-inline-flex align-items-center">
-              Start Business
-              <br>
-              <i class="fa fa-money"/>
-            </a>
           </div>
         </div>
       </div>

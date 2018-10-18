@@ -12,7 +12,6 @@
           <div class="device-wrapper">
             <div class="device" data-device="MacbookPro" data-orientation="portrait" data-color="black">
               <div class="screen">
-                <!-- PUT CONTENTS HERE -->
                 <img :src="mobileScreenshot">
               </div>
               <div class="button">
@@ -72,7 +71,8 @@ export default {
 <style lang="scss">
 .banner-area {
   .overlay-bg {
-    background: linear-gradient(to right, rgba(60, 64, 143, 0.95) 0%, rgba(91, 97, 207, 0.95) 100%);
+    background: rgba(19, 44, 57, 0.98);
+    // background: linear-gradient(to right, rgba(60, 64, 143, 0.95) 0%, rgba(91, 97, 207, 0.95) 100%);
   }
 
   .overlay {
@@ -84,7 +84,7 @@ export default {
   }
 
   .phone-mockup { 
-    background: url('../../../assets/img/lumia_mockup.png') no-repeat center center/contain;
+    // background: url('../../../assets/img/lumia_mockup.png') no-repeat center center/contain;
     height: 100%;
   }
 
