@@ -1,4 +1,5 @@
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 
 module.exports = {
@@ -26,6 +27,22 @@ module.exports = {
           stripPrefix: 'src/main/resources/static/'
         }
       ),
+      new WebpackPwaManifest({
+        name: 'Viary',
+        short_name: 'Viary',
+        description: 'Description!',
+        background_color: '#FFF',
+        theme_color: '#132c39',
+        'theme-color': '#132c39',
+        start_url: '/',
+        icons: [
+          {
+            src: path.resolve(__dirname, 'src/main/vuejs/assets/img/icons/icon.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: 'img'
+          }
+        ]
+      })
     ],
     devtool: 'source-map'
   },

@@ -12,7 +12,7 @@
             </h2>
             <p class="c-white mB-30">
               Writing diary or daily journal seems to be simple and worthless at some point. 
-              But you might be surprised how effectivelly it can better your time management 
+              But you will be surprised how effectivelly it can improve your time management 
               and overall self-awareness. Simple day notes can provide you option to keep track
               of important decisions to not forget and see your progress in time. Reading
               throught notes in past you can remember who you were. And based on occasional
