@@ -1,6 +1,6 @@
 <template>
   <div>
-    <diary-module :useLocalDatabase="useLocalDatabase" />
+    <diary-module :offlineMode="offlineMode" />
   </div>
 </template>
 
@@ -23,11 +23,6 @@ export default {
 
     window.addEventListener('online',  updateOnlineStatus);
     window.addEventListener('offline', updateOnlineStatus);
-  },
-  methods: {
-    useLocalDatabase () {
-      return this.offlineMode;
-    }
   }
 }
 </script>
