@@ -1,6 +1,8 @@
 <template>
   <signin-layout title="Sign up">
-    <register-form :onsignin="onsignin" />
+    <register-form 
+      :onsignin="onsignin" 
+      :success="redirect" />
   </signin-layout>
 </template>
 
@@ -12,6 +14,9 @@ export default {
     SigninLayout
   },
   methods: {
+    redirect() {
+      this.$router.push({ name: 'diary' });
+    },
     onsignin () {
       this.$router.push({ name: 'signin' })
     }
