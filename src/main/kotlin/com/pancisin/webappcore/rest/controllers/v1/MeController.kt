@@ -44,4 +44,9 @@ class MeController {
       slug = stored.slug
     })
   }
+
+  @PutMapping("/preference")
+  fun updateUserPreference(@RequestBody values: Map<String, String>, principal: Principal) {
+    return userService.updatePreference(principal.name, values.get("preference_key").toString(), values.get("value"))
+  }
 }

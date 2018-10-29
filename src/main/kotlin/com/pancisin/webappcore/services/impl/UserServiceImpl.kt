@@ -31,4 +31,11 @@ class UserServiceImpl : UserService {
   override fun save(user: User): User {
     return userRepository.save(user)
   }
+
+  override fun updatePreference(email: String, preferenceKey: String, value: String?) {
+    val user = findByEmail(email)
+    user.preferences.set(preferenceKey, value.toString())
+
+    userRepository.save(user)
+  }
 }

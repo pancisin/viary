@@ -32,5 +32,10 @@ data class User(
   var lastName: String? = null,
 
   @ManyToMany(fetch = FetchType.EAGER)
-  val roles: List<Role> = ArrayList()
+  val roles: List<Role> = ArrayList(),
+
+  @ElementCollection
+  @MapKeyColumn(name="preference_key")
+  @Column(name="value")
+  val preferences: MutableMap<String, String> = hashMapOf()
 )
