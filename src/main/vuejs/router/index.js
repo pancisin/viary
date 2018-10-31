@@ -71,5 +71,5 @@ const routes = [
 export default new VueRouter({
   linkExactActiveClass: 'active',
   routes,
-  mode: 'history' // history
+  mode: 'history'
 });
