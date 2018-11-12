@@ -1,14 +1,10 @@
 package com.pancisin.webappcore.rest.controllers.v1
 
-import com.pancisin.webappcore.domain.Day
-import com.pancisin.webappcore.domain.Diary
-import com.pancisin.webappcore.domain.Note
-import com.pancisin.webappcore.domain.dtos.DayDto
-import com.pancisin.webappcore.domain.dtos.DiaryDto
-import com.pancisin.webappcore.domain.dtos.NoteDto
-import com.pancisin.webappcore.domain.dtos.NoteWsDto
+import com.pancisin.webappcore.domain.*
+import com.pancisin.webappcore.domain.dtos.*
 import com.pancisin.webappcore.domain.embeddable.DayIdentity
 import com.pancisin.webappcore.domain.enums.CrudOperation
+import com.pancisin.webappcore.services.ContactService
 import com.pancisin.webappcore.services.DayService
 import com.pancisin.webappcore.services.DiaryService
 import com.pancisin.webappcore.services.NoteService
@@ -18,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.ResponseEntity
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.web.bind.annotation.*
+import java.security.Principal
 import java.util.*
 import javax.validation.Valid
 
@@ -33,6 +30,9 @@ class DiaryController {
 
   @Autowired
   lateinit var noteService: NoteService
+
+  @Autowired
+  lateinit var contactService: ContactService
 
   @Autowired
   lateinit var websocket: SimpMessagingTemplate
@@ -154,5 +154,35 @@ class DiaryController {
     }
 
     throw Exception("dsda")
+  }
+
+  @GetMapping("/contact")
+  fun getContacts(
+    @PathVariable(name = "diaryIdentifier") diaryIdentifier: String
+  ) : ResponseEntity<List<ContactDto>> {
+    val stored = findDiary(diaryIdentifier)
+    return ResponseEntity.ok(stored.contacts.map { ContactDto.fromContact(it) })
+  }
+
+  @PostMapping("/contact")
+  fun postContact(
+    @RequestBody contact: ContactDto,
+    @PathVariable(name = "diaryIdentifier") diaryIdentifier: String
+  ) : ResponseEntity<ContactDto> {
+    val stored = findDiary(diaryIdentifier)
+
+    val contactToStore = Contact().apply {
+      name = ContactName(
+        firstName = contact.name.firstName,
+        lastName = contact.name.lastName,
+        prefix = contact.name.prefix,
+        suffix = contact.name.suffix
+      )
+      diary = stored
+      metaData = contact.metaData.toMutableMap()
+    }
+
+    contactService.save(contactToStore)
+    return ResponseEntity.ok(ContactDto.fromContact(contactToStore))
   }
 }

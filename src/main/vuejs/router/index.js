@@ -38,18 +38,7 @@ const routes = [
       {
         path: '/diary',
         name: 'diary',
-        component: () => import('@/components/pages/Diary.page'),
-        beforeEnter (to, from, next) {
-          next();
-          // store.dispatch('$_diary/initializeDiaries').then(() => {
-          //   store.dispatch('scopeDiary', { scopeDate: to.query.date_scope }).then(() => {
-          //     next();
-          //   }).catch(e => {
-          //     console.warn(e)
-          //     next({ name: 'diary.create', props: { intro: true } })
-          //   })
-          // });
-        }
+        component: () => import('@/components/pages/Diary.page')
       }
     ]
   },

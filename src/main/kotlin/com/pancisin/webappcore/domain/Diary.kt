@@ -54,6 +54,9 @@ data class Diary(
   @OneToMany(mappedBy = "diary")
   var days: List<Day> = ArrayList()
 
+  @OneToMany(mappedBy = "diary")
+  var contacts: List<Contact> = ArrayList()
+
   @JsonIgnore
   @OneToMany(mappedBy = "diary")
   var userRelations: List<UserDiaryRelation> = ArrayList()
