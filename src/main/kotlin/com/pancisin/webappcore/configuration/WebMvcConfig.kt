@@ -9,7 +9,7 @@ open class WebMvcConfig : WebMvcConfigurerAdapter() {
 
   override fun addViewControllers(registry: ViewControllerRegistry) {
     registry
-      .addViewController("/{spring:\\w+}")
+      .addViewController("/{spring:[\\w/]+}")
       .setViewName("forward:/index.html")
   }
 }
