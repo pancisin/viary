@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import org.hibernate.annotations.GenericGenerator
 import java.util.*
 import javax.persistence.*
-import jdk.nashorn.tools.ShellFunctions.input
+// import jdk.nashorn.tools.ShellFunctions.input
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 

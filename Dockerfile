@@ -1,8 +1,6 @@
-FROM node:lts-alpine
+FROM node:lts-alpine AS build
 
-RUN npm install -g http-server
-
-WORKDIR /app
+WORKDIR /dist
 
 COPY package*.json ./
 
@@ -12,5 +10,10 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 8080
-CMD [ "http-server", "dist" ]
+FROM nginx
+
+WORKDIR /app
+
+COPY --from=build /dist/src/main/resources/static /usr/share/nginx/html
+
+EXPOSE 80

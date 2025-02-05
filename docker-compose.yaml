@@ -1,0 +1,39 @@
+volumes:
+  mysql-data:
+    driver: local
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: "diary_db"
+      MYSQL_USER: "diary_db"
+      MYSQL_PASSWORD: "Czhk4oZA7IGatlG7"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.spring
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - DB_URL=jdbc:mysql://db:3306/diary_db?characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+      - DB_USERNAME=diary_db
+      - DB_PASSWORD=Czhk4oZA7IGatlG7
+    links:
+      - db
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"

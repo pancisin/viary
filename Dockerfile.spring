@@ -1,0 +1,29 @@
+# FROM maven:3.8.4-openjdk-11-slim AS springbuild
+FROM maven:3.8.3-jdk-8-slim AS springbuild
+
+WORKDIR /app
+
+COPY pom.xml .
+
+COPY src ./src
+
+RUN mvn clean package -DskipTests
+
+# FROM openjdk:11-jre-slim
+FROM openjdk:8-jre-slim
+
+ENV DB_URL="jdbc:mysql://localhost:3306/diary?useSSL=false&serverTimezone=UTC" \
+    DB_USERNAME="diary_db" \
+    DB_PASSWORD="root" \
+    SPRING_PROFILES_ACTIVE="production" \
+    PORT=8080
+
+WORKDIR /app
+
+COPY --from=springbuild /app/target/*.jar ./
+
+RUN dir 
+
+CMD ["java", "-jar", "diary-0.0.1-SNAPSHOT.jar"]
+
+EXPOSE 8080

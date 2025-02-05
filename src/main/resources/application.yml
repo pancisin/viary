@@ -51,10 +51,11 @@ storage:
 spring:
   profiles: production
   datasource:
-    username: diary_db
-    password: Czhk4oZA7IGatlG7
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 server:
-  port: 8080
+  port: ${PORT}
   context-path: /diary
 storage:
   path: /uploads/diary/
