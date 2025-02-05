@@ -3,11 +3,14 @@ import App from './App.vue';
 import VueResource from 'vue-resource';
 import router from '@/router';
 import store from '@/store';
-import { AuthPlugin, WebSocketPlugin } from 'diary-core/dist/diary-core.common.js';
+import {
+  AuthPlugin,
+  WebSocketPlugin
+} from 'viary-core/dist/diary-core.common.js';
 
 // STYLES IMPORTS
 // import '@/assets/scss/index.scss';
-import 'diary-core/dist/diary-core.css';
+import 'viary-core/dist/diary-core.css';
 
 // DIRECTIVES INSTALLATION
 import * as directives from '@/directives';
@@ -24,7 +27,7 @@ for (const f in filters) {
 Vue.use(VueResource);
 Vue.config.productionTip = false;
 
-Vue.use(WebSocketPlugin, {})
+Vue.use(WebSocketPlugin, {});
 
 // INTERCEPTORS INSTALLATION
 import * as interceptors from '@/api/interceptors';
@@ -35,21 +38,21 @@ for (const i in interceptors) {
 // PLUGINS INSTALLATION
 Vue.use(AuthPlugin, {
   store,
-  oncomplete: _ => {
+  oncomplete: (_) => {
     new Vue({
       components: { App },
       router,
       store,
-      render: h => h(App)
-    }).$mount('#app')
+      render: (h) => h(App)
+    }).$mount('#app');
   },
-  onlogout: _ => {
-    router.push({ name: 'signin' })
+  onlogout: (_) => {
+    router.push({ name: 'signin' });
   }
 });
 
-(function() {
-  if('serviceWorker' in navigator) {
+(function () {
+  if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/viary-webapp-sw.js');
   }
 })();

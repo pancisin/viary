@@ -1,32 +1,30 @@
 <template>
   <div>
-    <diary-module :offlineMode="offlineMode" />
+    <diary-module :offline-mode="offlineMode" />
   </div>
 </template>
 
 <script>
-import Vue from 'vue';
-import { DiaryModule } from 'diary-core/dist/diary-core.common.js'
+import { DiaryModule } from "viary-core/dist/diary-core.common.js";
 export default {
-  name: 'diary-page',
+  name: "diary-page",
   components: {
     DiaryModule
   },
-  data () {
+  data() {
     return {
       offlineMode: false
-    }
+    };
   },
-  mounted () {
-    const updateOnlineStatus = e => {
-      this.offlineMode = e.type.toLowerCase() === 'offline';
-    }
+  mounted() {
+    const updateOnlineStatus = (e) => {
+      this.offlineMode = e.type.toLowerCase() === "offline";
+    };
 
-    console.log(this.$route)
+    console.log(this.$route);
 
-    window.addEventListener('online',  updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
+    window.addEventListener("online", updateOnlineStatus);
+    window.addEventListener("offline", updateOnlineStatus);
   }
-}
+};
 </script>
- 

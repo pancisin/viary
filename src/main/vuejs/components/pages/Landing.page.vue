@@ -11,7 +11,7 @@
 </template>
 
 <script>
-// import { Toasts } from 'diary-core/dist/diary-core.common.js';
+// import { Toasts } from 'viary-core/dist/diary-core.common.js';
 import * as sections from './landing';
 
 export default {

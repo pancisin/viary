@@ -17,7 +17,7 @@
 import { mapGetters } from 'vuex';
 import { PageTransition } from '@/components/transitions';
 
-// import { Toasts } from 'diary-core/dist/diary-core.common.js';
+// import { Toasts } from 'viary-core/dist/diary-core.common.js';
 
 export default {
   components: {
