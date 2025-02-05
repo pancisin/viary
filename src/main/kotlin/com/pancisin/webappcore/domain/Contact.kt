@@ -23,11 +23,11 @@ class Contact {
 
   @Id
   @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
   @Column(
     updatable = false,
-    nullable = false,
-    columnDefinition = "BINARY(16)")
+    nullable = false
+    )
   var id: UUID? = null
 
   @ManyToOne(optional = false)
@@ -50,11 +50,11 @@ data class ContactName (
 
   @Id
   @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
   @Column(
     updatable = false,
-    nullable = false,
-    columnDefinition = "BINARY(16)")
+    nullable = false
+    )
   var id: UUID? = null,
 
   @Column(name = "first_name")

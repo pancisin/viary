@@ -20,11 +20,11 @@ data class Note (
 ) {
   @Id
   @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
   @Column(
     updatable = false,
-    nullable = false,
-    columnDefinition = "BINARY(16)")
+    nullable = false
+    )
   @JsonProperty("id")
   var id: UUID? = null
 

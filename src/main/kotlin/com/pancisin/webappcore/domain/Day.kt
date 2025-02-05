@@ -22,7 +22,6 @@ class Day(dateNumber: Int, year: Int, diary: Diary?) {
     this.diary = diary
   }
 
-  @Lob
   @Column(
     name = "content"
   )

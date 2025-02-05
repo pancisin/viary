@@ -23,7 +23,6 @@ data class Diary(
   @JsonProperty("name")
   var name: String? = null,
 
-  @Lob
   @Column(name = "description")
   @JsonProperty("description")
   var description: String? = null
@@ -31,11 +30,11 @@ data class Diary(
 ) {
   @Id
   @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
   @Column(
     updatable = false,
-    nullable = false,
-    columnDefinition = "BINARY(16)")
+    nullable = false
+    )
   @JsonProperty("id")
   var id: UUID? = null
 
