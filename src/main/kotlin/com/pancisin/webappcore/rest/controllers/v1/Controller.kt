@@ -24,8 +24,8 @@ class Controller {
     val user = userService.findByEmail(principal.name)
 
     return ResponseEntity.ok(hashMapOf<String, Any?>(
-      "themes" to themeRepository.findAll(),
-      "preferences" to user.preferences
+      "themes" to themeRepository.findAll()
+      // "preferences" to user.preferences
 //      "preferences" to
       // "nodeConstraints" to NodeConstraint.values(),
       // "relationTypes" to RelationType.values(),

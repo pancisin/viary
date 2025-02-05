@@ -1,6 +1,6 @@
 <template>
   <div>
-    <diary-module :offline-mode="offlineMode" />
+    <diary-module :offlineMode="offlineMode" />
   </div>
 </template>
 
