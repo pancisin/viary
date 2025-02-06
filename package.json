@@ -4,7 +4,7 @@
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "rimraf src/main/resources/static &&  vue-cli-service build",
+    "build": "rimraf dist && vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -13,9 +13,8 @@
     "debounce": "^1.2.0",
     "html5-device-mockups": "^3.2.1",
     "luxon": "^1.2.1",
-    "sass": "^1.83.4",
     "velocity-animate": "^1.5.1",
-    "viary-core": "^0.2.37",
+    "viary-core": "^0.2.38",
     "vue": "^2.5.16",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
@@ -27,6 +26,7 @@
     "@vue/cli-plugin-eslint": "^3.0.0-beta.11",
     "@vue/cli-service": "^3.0.0-beta.11",
     "sass-loader": "^7.0.1",
+    "sass": "^1.83.4",
     "sw-precache-webpack-plugin": "^0.11.5",
     "vue-template-compiler": "^2.5.16"
   },

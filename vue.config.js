@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
   // outputDir: path.resolve(__dirname, 'src/main/resources/static'),
-  outputDir: 'src/main/resources/static',
+  outputDir: 'dist',
   configureWebpack: {
     entry: [
       'babel-polyfill',
@@ -18,15 +18,13 @@ module.exports = {
       }
     },
     plugins: [
-      new SWPrecacheWebpackPlugin(
-        {
-          cacheId: 'viary-webapp',
-          filename: 'viary-webapp-sw.js',
-          staticFileGlobs: ['src/main/resources/static/**/*.{js,html,css}'],
-          minify: true,
-          stripPrefix: 'src/main/resources/static/'
-        }
-      ),
+      new SWPrecacheWebpackPlugin({
+        cacheId: 'viary-webapp',
+        filename: 'viary-webapp-sw.js',
+        staticFileGlobs: ['dist/**/*.{js,html,css}'],
+        minify: true,
+        stripPrefix: 'dist/'
+      }),
       new WebpackPwaManifest({
         name: 'Viary',
         short_name: 'Viary',
@@ -37,7 +35,10 @@ module.exports = {
         start_url: '/',
         icons: [
           {
-            src: path.resolve(__dirname, 'src/main/vuejs/assets/img/icons/icon.png'),
+            src: path.resolve(
+              __dirname,
+              'src/main/vuejs/assets/img/icons/icon.png'
+            ),
             sizes: [96, 128, 192, 256, 384, 512],
             destination: 'img'
           }
@@ -46,8 +47,8 @@ module.exports = {
     ],
     devtool: 'source-map'
   },
-  chainWebpack: config => {
-    config.plugin('html').tap(args => {
+  chainWebpack: (config) => {
+    config.plugin('html').tap((args) => {
       if (args[0] != null) {
         args[0].template = path.resolve(__dirname, 'index.html');
       }
@@ -72,7 +73,7 @@ module.exports = {
       '/gs-guide-websocket': {
         target: 'http://localhost:8180',
         secure: false
-      },
+      }
     }
   }
 };

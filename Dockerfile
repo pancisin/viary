@@ -1,6 +1,6 @@
-FROM node:lts-alpine AS build
+FROM node:12-alpine AS build
 
-WORKDIR /dist
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -14,8 +14,6 @@ FROM nginx
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-WORKDIR /app
-
-COPY --from=build /dist/src/main/resources/static /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80

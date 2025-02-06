@@ -84,6 +84,8 @@ node/node.exe
 
 src/main/resources/static/
 
-package-lock\.json
+# package-lock\.json
 
 node/
+
+dist/

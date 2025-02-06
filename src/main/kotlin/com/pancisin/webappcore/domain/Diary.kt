@@ -72,7 +72,7 @@ data class Diary(
         && SecurityContextHolder.getContext().authentication !is AnonymousAuthenticationToken) {
 
         val email = SecurityContextHolder.getContext().authentication.principal
-
+  
         return userRelations?.firstOrNull { email.equals(it.user?.email) }
       }
       return null
